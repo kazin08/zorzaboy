@@ -1076,7 +1076,7 @@ KEEP_PLAYING:
 	LDI	R16,47
 	CLC
 	CP	R1,R16
-	BREQ	SNAKE_GAME_OVER		;Se verifica que no se estÈ en los bordes de la pantalla
+	BREQ	SNAKE_GAME_OVER		;Se verifica que no se est√© en los bordes de la pantalla
 	
 	CALL	MOVE_SNAKE_ONE_POSITION
 	CALL	DELAY_SNAKE
@@ -1362,7 +1362,7 @@ PRINT_NEXT_PIXEL_Y_DISPLAY:
 RET
 ;/************************************************************
 ;Esta funcion setea un pixel dentro de la matriz de la RAM donde 
-;se encuentran los datos que se enviar·n al display.
+;se encuentran los datos que se enviar√°n al display.
 ;*/
 
 SET_PIXEL_IN_RAM_DISPLAY:
@@ -1377,7 +1377,7 @@ SET_PIXEL_IN_RAM_DISPLAY:
 	PUSH	ZH	;Direccion del primer valor de la RAM
 	
 	LDI	R18,8	;Por cada valor de Y en el display, son 8 valores de Y en la RAM
-	LDI	R19,1	;Inicializo un contador donde se guardar· el valor de Y del display
+	LDI	R19,1	;Inicializo un contador donde se guardar√° el valor de Y del display
 
 TRY_NEXT_Y_VALUE_SET:	
 	MUL	R18,R19	;Multiplico el valor de Y del display por la cantidad de pixeles que ocupa
@@ -1419,7 +1419,7 @@ MASK_FOUND_SET:			;Al salir del bucle ya tengo la mascara que se le debe aplicar
 	ADD	ZL,R16
 	ADC	ZH,R18	;Me muevo X valores en la memoria RAM
 
-	;Al llegar ac·, ya tengo ubicado el byte que se debe modificar aplicando la mascara
+	;Al llegar ac√°, ya tengo ubicado el byte que se debe modificar aplicando la mascara
 	LD	R18,Z	;Se lee el valor apuntado
 	OR	R18,R20	;Se setea el bit deseado
 	ST	Z,R18	;Se vuelve a cargar el valor
@@ -1437,7 +1437,7 @@ RET
 
 ;/************************************************************
 ;Esta funcion apaga un pixel dentro de la matriz de la RAM donde 
-;se encuentran los datos que se enviar·n al display.
+;se encuentran los datos que se enviar√°n al display.
 ;*/
 
 CLEAR_PIXEL_IN_RAM_DISPLAY:
@@ -1452,7 +1452,7 @@ CLEAR_PIXEL_IN_RAM_DISPLAY:
 	PUSH	ZH	;Direccion del primer valor de la RAM
 	
 	LDI	R18,8	;Por cada valor de Y en el display, son 8 valores de Y en la RAM
-	LDI	R19,1	;Inicializo un contador donde se guardar· el valor de Y del display
+	LDI	R19,1	;Inicializo un contador donde se guardar√° el valor de Y del display
 
 TRY_NEXT_Y_VALUE_CLEAR:	
 	MUL	R18,R19	;Multiplico el valor de Y del display por la cantidad de pixeles que ocupa
@@ -1494,7 +1494,7 @@ MASK_FOUND_CLEAR:		;Al salir del bucle ya tengo la mascara que se le debe aplica
 	ADD	ZL,R16
 	ADC	ZH,R18	;Me muevo X valores en la memoria RAM
 
-	;Al llegar ac·, ya tengo ubicado el byte que se debe modificar aplicando la mascara
+	;Al llegar ac√°, ya tengo ubicado el byte que se debe modificar aplicando la mascara
 	LD	R18,Z	;Se lee el valor apuntado
 	COM	R20
 	AND	R18,R20	;Se setea el bit deseado
@@ -1530,7 +1530,7 @@ CHECK_IF_PIXEL_SET_IN_RAM_DISPLAY:
 	PUSH	ZH	;Direccion del primer valor de la RAM
 	
 	LDI	R18,8	;Por cada valor de Y en el display, son 8 valores de Y en la RAM
-	LDI	R19,1	;Inicializo un contador donde se guardar· el valor de Y del display
+	LDI	R19,1	;Inicializo un contador donde se guardar√° el valor de Y del display
 
 TRY_NEXT_Y_VALUE_CHECK_PIXEL:	
 	MUL	R18,R19	;Multiplico el valor de Y del display por la cantidad de pixeles que ocupa
@@ -1573,7 +1573,7 @@ MASK_FOUND_CHECK_PIXEL:		;Al salir del bucle ya tengo la mascara que se le debe 
 	ADD	ZL,R16
 	ADC	ZH,R18	;Me muevo X valores en la memoria RAM
 
-	;Al llegar ac·, ya tengo ubicado el byte que se debe modificar aplicando la mascara
+	;Al llegar ac√°, ya tengo ubicado el byte que se debe modificar aplicando la mascara
 	LD	R18,Z	;Se lee el valor apuntado
 	AND	R18,R20	;Se aplica la mascara
 	MOV	R21,R18	;Si el pixel esta apagado R21 va a valer cero, sino sera un valor distinto de cero
