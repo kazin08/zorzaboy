@@ -1,29 +1,29 @@
 .INCLUDE "LCD_5110_controller.h"
 .INCLUDE "snake.h"
 
-/***************************************************************************/
-/***************************************************************************/
-//memoria EEPROM 
-/***************************************************************************/
-/***************************************************************************/
+;**************************************************************************/
+;**************************************************************************/
+;memoria EEPROM 
+;**************************************************************************/
+;**************************************************************************/
 .ESEG
 
-	HIGH_SCORE:		.byte	1		//memoria para guardar el highscore
-/***************************************************************************/
-/***************************************************************************/
-//memoria RAM
-/***************************************************************************/
-/***************************************************************************/
+	HIGH_SCORE:		.byte	1		;memoria para guardar el highscore
+;**************************************************************************/
+;**************************************************************************/
+;memoria RAM
+;**************************************************************************/
+;**************************************************************************/
 	.dseg
 
-	RAM_DISPLAY:	.byte	588		//por si me paso con los graficos
-	SECUENCIA:		.byte	100		//secuencia para el simon dice
+	RAM_DISPLAY:	.byte	588		;por si me paso con los graficos
+	SECUENCIA:		.byte	100		;secuencia para el simon dice
 
-/****************************************************************************/
-/****************************************************************************/
-//memoria flash
-/****************************************************************************/
-/****************************************************************************/
+;***************************************************************************/
+;***************************************************************************/
+;memoria flash
+;***************************************************************************/
+;***************************************************************************/
 
 
 .CSEG	
@@ -45,7 +45,7 @@ RJMP	TIMER0_OVF_HANDLER
 
 .ORG 0x0034
 
-;/********************************************************************
+;;*******************************************************************
 ;Esta funcion atiende las interrupciones producto de PCINT0
 ;*********************************************************************/
 
@@ -55,7 +55,7 @@ PCINT0_HANDLER:
 	CALL	PAUSE_SNAKE
 RETI
 
-;/********************************************************************
+;;*******************************************************************
 ;Esta funcion atiende las interrupciones producto de PCINT1
 ;*********************************************************************/
 
@@ -75,7 +75,7 @@ PCINT1_HANDLER:
 	
 RETI
 
-;/********************************************************************
+;;*******************************************************************
 ;Esta funcion atiende las interrupciones producto de PCINT2
 ;*********************************************************************/
 
@@ -83,7 +83,7 @@ PCINT2_HANDLER:
 	;Estas interrupciones no estan siendo utilizadas
 RETI
 
-;/********************************************************************
+;;*******************************************************************
 ;Esta funcion atiende las interrupciones producto del overflow del TIMER0
 ;********************************************************************/
 
@@ -98,13 +98,13 @@ TIMER0_OVF_HANDLER:
 	POP		ZH
 	POP		ZL
 RETI
-/*********************************************************************/
-//fin interrupciones
+;********************************************************************/
+;fin interrupciones
 
 
-/*************************************************************/
-//TEXTOS PARA MOSTRAR EN DISPLAY
-/*************************************************************/
+;************************************************************/
+;TEXTOS PARA MOSTRAR EN DISPLAY
+;************************************************************/
 
 score:		.db		"Score: 000"	;texto para mostrar el score en el snake
 LOADING:	.db		"  LOADING..."
@@ -124,31 +124,31 @@ PRESS_B_MSG:	.db "B: salir"
 ZORZA:		.db		"   ZORZABOY   "
 
 
-/************************************************************/
-//GRAFICOS PARA MOSTRAR EN DISPLAY
-/************************************************************/
+;***********************************************************/
+;GRAFICOS PARA MOSTRAR EN DISPLAY
+;***********************************************************/
 
-//FLECHA ARRIBA SIN RELLENO
+;FLECHA ARRIBA SIN RELLENO
 
 FLECHA_UP:	.db		0x30, 0x28, 0xE4, 0x02, 0x01, 0x02, 0xE4, \
 					0x28, 0x30, 0x00, 0x00, 0x07, 0x04, 0x04, \
 					0x04, 0x07, 0x00, 0x00
 
-//FLECHA ABAJO SIN RELLENO
+;FLECHA ABAJO SIN RELLENO
 
 FLECHA_DWN:	.db		0x60, 0xA0, 0x3F, 0x01, 0x01, 0x01, 0x3F, \
 					0xA0, 0x60, 0x00, 0x00, 0x01, 0x02, 0x04, \
 					0x02, 0x01, 0x00, 0x00
 
 
-//FLECHA RIGTH SIN RELLENO
+;FLECHA RIGTH SIN RELLENO
 
 FLECHA_R:	.db		0x7C, 0x44, 0x44, 0x44, 0x44, 0xC7, 0x01, \
 					0x82, 0x44, 0x28, 0x10, 0x00, 0x00, 0x00, \
 					0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 0x00, \
 					0x00  
 
-//FLECHA LEFT SIN RELLENO
+;FLECHA LEFT SIN RELLENO
 
 
 FLECHA_L:	.db		0x10, 0x28, 0x44, 0x82, 0x01, 0xC7, 0x44, \
@@ -157,61 +157,61 @@ FLECHA_L:	.db		0x10, 0x28, 0x44, 0x82, 0x01, 0xC7, 0x44, \
 					0x00  
 					
 
-//FLECHA ARRIBA CON RELLENO
+;FLECHA ARRIBA CON RELLENO
 
 					
 FLECHA_UP_NEG:	.db	0x30, 0x38, 0xFC, 0xFE, 0xFF, 0xFE, 0xFC, \
 					0x38, 0x30, 0x00, 0x00, 0x07, 0x07, 0x07, \
 					0x07, 0x07, 0x00, 0x00
 
-//FLECHA LEFT CON RELLENO
+;FLECHA LEFT CON RELLENO
 
 FLECHA_L_NEG:	.db	0x10, 0x38, 0x7C, 0xFE, 0xFF, 0xFF, 0x7C, \
 					0x7C, 0x7C, 0x7C, 0x7C, 0x00, 0x00, 0x00, \
 					0x00, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, \
 					0x00
 					
-//FLECHA RIGTH CON RELLENO					
+;FLECHA RIGTH CON RELLENO					
 
 FLECHA_R_NEG:	.db	0x7C, 0x7C, 0x7C, 0x7C, 0x7C, 0xFF, 0xFF, \
 					0xFE, 0x7C, 0x38, 0x10, 0x00, 0x00, 0x00, \
 					0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 0x00, \
 					0x00
 
-//FLECHA ABAJO CON RELLENO
+;FLECHA ABAJO CON RELLENO
 
 					
 FLECHA_DWN_NEG:	.db	0x60, 0xE0, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, \
 					0xE0, 0x60, 0x00, 0x00, 0x01, 0x03, 0x07, \
 					0x03, 0x01, 0x00, 0x00
 
-//LINEA:		.db		0xFF, 0x00, 0x00, 0xFF, 0xFF, 0x00, 0x00, 0xFF, 0xFF, 0x00, 0x00, 0xFF
+;LINEA:		.db		0xFF, 0x00, 0x00, 0xFF, 0xFF, 0x00, 0x00, 0xFF, 0xFF, 0x00, 0x00, 0xFF
 
-//LINEA2:		.db		0xFF, 0x00
+;LINEA2:		.db		0xFF, 0x00
 
 
 
-//CIRCULO VACIO 10 (pixels) * 2 (bytes)
+;CIRCULO VACIO 10 (pixels) * 2 (bytes)
 
 CIRCULO:	.db		0xF8, 0x04,	0x02, 0x01, 0x01, 0x01, 0x01, 0x02, \
 					0x04, 0xF8, 0x00, 0x01, 0x02, 0x04, 0x04, 0x04, \
 					0x04, 0x02, 0x01, 0x00
 
-//CIRCULO LLENO 10*2
+;CIRCULO LLENO 10*2
 
 CIRCULO_NEG:	.db	0xF8, 0xFC, 0xFE, 0xFF, 0xFF, 0xFF, 0xFF, 0xFE, \
 					0xFC, 0XF8, 0x00, 0x01, 0x03, 0x07, 0x07, 0x07, \
 					0x07, 0x03, 0x01, 0x00
 
 
-//CORAZON LLENO 10*2
+;CORAZON LLENO 10*2
 
 CORAZON_NEG:	.db	0x1C, 0x3E, 0x7F, 0xFE, 0xFC, 0xFC, 0xFE, 0x7B, \
 					0x3E, 0x1C, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, \
 					0x00, 0x00, 0x00, 0x00
 
 
-//CORAZON VACIO 10*2
+;CORAZON VACIO 10*2
 
 CORAZON:	.db		0x1C, 0x22, 0x41, 0x82, 0x04, 0x04, 0x82, 0x41, \
 					0x22, 0x1C, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, \
@@ -219,52 +219,52 @@ CORAZON:	.db		0x1C, 0x22, 0x41, 0x82, 0x04, 0x04, 0x82, 0x41, \
 
 
 
-/*************************************************************************************/
-//letras especiales para el inicio del simon dice
-/*************************************************************************************/
-//S - 9 alto * 2 bytes
+;************************************************************************************/
+;letras especiales para el inicio del simon dice
+;************************************************************************************/
+;S - 9 alto * 2 bytes
 S_INIT:		.db		0x8C, 0xDE, 0xDF, 0x99, 0x93, 0xF7, 0xF7, 0xF6, 0x60, \
 					0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00
 
 
-//i - 5 * 2
+;i - 5 * 2
 I_INIT:		.db		0x10, 0x91, 0xF3, 0x33, 0x00, \
 					0x02, 0x03, 0x03, 0x02, 0x02, \
 					0x00, 0x00, 0x00, 0x00, 0x00, 0x00  
 
-//m - 13 * 1
+;m - 13 * 1
 M_INIT:		.db		0x41, 0x7F, 0x7F, 0x4C, 0x06, 0x07, 0x7F, 0x7F, 0x0C, 0x06, 0x73, 0x7F, 0x5E, \
 					0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
 
 
-//o - 8 * 1
+;o - 8 * 1
 O_INIT:		.db		0x1C, 0x36, 0x63, 0x63, 0x63, 0x63, 0x3F, 0x0C, \
 					0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
 
 
-//n - 9 * 1
+;n - 9 * 1
 N_INIT:		.db		0x01, 0x43, 0x7F, 0x7F, 0x04, 0x02, 0x67, 0x7F, 0x3E, \
 					0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 
 
-//d - 9 * 2
+;d - 9 * 2
 D_INIT:		.db		0xE0, 0xF0, 0x38, 0x18, 0x18, 0x92, 0xFE, 0xFF, 0x03, \
 					0x01, 0x03, 0x03, 0x03, 0x01, 0x01, 0x03, 0x03, 0x02, \
 					0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 					
 					
-//c - 8 * 1
+;c - 8 * 1
 C_INIT:		.db		0x08, 0x3E, 0x7E, 0x63, 0x41, 0x43, 0x47, 0x06, \
 					0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 
 
-//e - 7 * 1
+;e - 7 * 1
 E_INIT:		.db		0x3E, 0x7F, 0x45, 0x55, 0x75, 0x37, 0x26, 0x00, \
 					0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00  
 
-/****************************************************************************************/
-//letras para el SNAKE en pantalla de inicio
-/****************************************************************************************/
+;***************************************************************************************/
+;letras para el SNAKE en pantalla de inicio
+;***************************************************************************************/
 
 SNAKE_SIMBOL_INIT: .db	0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,\
 			0x00,0x00,0x00,0x00,0x00,0x80,0x40,0x60,0x60,0x60,\
@@ -321,9 +321,9 @@ SNAKE_SIMBOL_INIT: .db	0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,\
 			0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,\
 			0x00,0x00,0x00,0x00
 
-/************************************************************************************/
-//LETRAS PARA ZORZABOY 64 *2
-/************************************************************************************/
+;***********************************************************************************/
+;LETRAS PARA ZORZABOY 64 *2
+;***********************************************************************************/
 										
 ZORZABOY_NEG:	.db		0xE3, 0xF3, 0xFB, 0xFF, 0xFF, 0xDF, 0xCF, 0xC7, \
 						0X7E, 0xFF, 0xFF, 0xC3, 0xC3, 0xFF, 0xFF, 0x7C, \
@@ -361,9 +361,9 @@ ZORZABOY:		.db		0xC2, 0xE2, 0xF2, 0x9A, 0x9E, 0x8E, 0x86, 0x00, \
 						0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 
 
-/************************************************************************************/					
-//TABLA DE CARACTERES, modificada para q ande con mi programa para escribir en RAM						
-/************************************************************************************/
+;***********************************************************************************/					
+;TABLA DE CARACTERES, modificada para q ande con mi programa para escribir en RAM						
+;***********************************************************************************/
 
 CHARS_TABLE:		.db		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
 				0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
@@ -556,11 +556,11 @@ CHARS_TABLE:		.db		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
 				0x00, 0x00, 0x06, 0x09, 0x09, 0x06, \
 				0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 
-/***********************************************************************************************************************/
-/***********************************************************************************************************************/ 
-//PROGRAMA PRINCIPAL
-/***********************************************************************************************************************/
-/***********************************************************************************************************************/
+;**********************************************************************************************************************/
+;**********************************************************************************************************************/ 
+;PROGRAMA PRINCIPAL
+;**********************************************************************************************************************/
+;**********************************************************************************************************************/
 
 MAIN:
 		LDI		R16, LOW(RAMEND)
@@ -582,7 +582,7 @@ MAIN:
 		CALL	CLEAR_RAM
 
 
-//aca MUESTRO zorzaboy 2 segundos	
+;aca MUESTRO zorzaboy 2 segundos	
 		
 		LDI		R18, 80				;2 SEGS APROX
 CARGO_LOGO:
@@ -619,7 +619,7 @@ CARGO_LOGO:
 		BRNE	CARGO_LOGO
 		
 
-//a partir de aca tengo que hacer el menu para mostrar los 2 juegos
+;a partir de aca tengo que hacer el menu para mostrar los 2 juegos
 
 		CALL	CLEAR_SCREEN
 
@@ -654,11 +654,11 @@ ESPERO_ELECCION:
 		JMP		ESPERO_ELECCION
 
 
-/***********************************************************************************************************************/
-/***********************************************************************************************************************/ 
-//PROGRAMA PARA SIMON DICE
-/***********************************************************************************************************************/
-/***********************************************************************************************************************/
+;**********************************************************************************************************************/
+;**********************************************************************************************************************/ 
+;PROGRAMA PARA SIMON DICE
+;**********************************************************************************************************************/
+;**********************************************************************************************************************/
 
 SIMON_GAME:	
 		CALL	CLEAR_SCREEN
@@ -677,18 +677,18 @@ SIMON_GAME:
 OTRA_PARTIDA:
 		CALL	CLEAR_SCREEN
 
-/*******************************************************************************************/
-//CARGO PANTALLA DE INICIO
-/*******************************************************************************************/
+;******************************************************************************************/
+;CARGO PANTALLA DE INICIO
+;******************************************************************************************/
 
-		//cargo la pantalla de inicio
-		// letra especial para simon dice
+		;cargo la pantalla de inicio
+		; letra especial para simon dice
 		
 
 		
 RENUEVO:
 		CALL	CLEAR_RAM
-		//S
+		;S
 		LDI		R16, 17				;POSICION DE X
 		LDI		R17, 5				;POSICION DE Y
 		LDI		R23, 9				;ancho EN PIXELES
@@ -696,7 +696,7 @@ RENUEVO:
 		LDI		ZL, LOW(S_INIT<<1)
 		LDI		ZH, HIGH(S_INIT<<1)
 		CALL	CARGO_MATRIZ_RAM
-		//I
+		;I
 		LDI		R16, 27				;POSICION DE X
 		LDI		R17, 4				;POSICION DE Y
 		LDI		R23, 5				;ancho EN PIXELES
@@ -704,7 +704,7 @@ RENUEVO:
 		LDI		ZL, LOW(I_INIT<<1)
 		LDI		ZH, HIGH(I_INIT<<1)
 		CALL	CARGO_MATRIZ_RAM
-		//M
+		;M
 		LDI		R16, 34				;POSICION DE X
 		LDI		R17, 7				;POSICION DE Y
 		LDI		R23, 13				;ancho EN PIXELES
@@ -712,7 +712,7 @@ RENUEVO:
 		LDI		ZL, LOW(M_INIT<<1)
 		LDI		ZH, HIGH(M_INIT<<1)
 		CALL	CARGO_MATRIZ_RAM
-		//O
+		;O
 		LDI		R16, 48				;POSICION DE X
 		LDI		R17, 7				;POSICION DE Y
 		LDI		R23, 8				;ancho EN PIXELES
@@ -720,7 +720,7 @@ RENUEVO:
 		LDI		ZL, LOW(O_INIT<<1)
 		LDI		ZH, HIGH(O_INIT<<1)
 		CALL	CARGO_MATRIZ_RAM
-		//n
+		;n
 		LDI		R16, 55				;POSICION DE X
 		LDI		R17, 7				;POSICION DE Y
 		LDI		R23, 9				;ancho EN PIXELES
@@ -728,7 +728,7 @@ RENUEVO:
 		LDI		ZL, LOW(N_INIT<<1)
 		LDI		ZH, HIGH(N_INIT<<1)
 		CALL	CARGO_MATRIZ_RAM
-		//D
+		;D
 		LDI		R16, 26				;POSICION DE X
 		LDI		R17, 18				;POSICION DE Y
 		LDI		R23, 9				;ancho EN PIXELES
@@ -736,7 +736,7 @@ RENUEVO:
 		LDI		ZL, LOW(D_INIT<<1)
 		LDI		ZH, HIGH(D_INIT<<1)
 		CALL	CARGO_MATRIZ_RAM
-		//I
+		;I
 		LDI		R16, 36				;POSICION DE X
 		LDI		R17, 18				;POSICION DE Y
 		LDI		R23, 5				;ancho EN PIXELES
@@ -744,7 +744,7 @@ RENUEVO:
 		LDI		ZL, LOW(I_INIT<<1)
 		LDI		ZH, HIGH(I_INIT<<1)
 		CALL	CARGO_MATRIZ_RAM
-		//C
+		;C
 		LDI		R16, 42				;POSICION DE X
 		LDI		R17, 21				;POSICION DE Y
 		LDI		R23, 8				;ancho EN PIXELES
@@ -752,7 +752,7 @@ RENUEVO:
 		LDI		ZL, LOW(C_INIT<<1)
 		LDI		ZH, HIGH(C_INIT<<1)
 		CALL	CARGO_MATRIZ_RAM
-		//E
+		;E
 		LDI		R16, 51				;POSICION DE X
 		LDI		R17, 21				;POSICION DE Y
 		LDI		R23, 7				;ancho EN PIXELES
@@ -765,8 +765,8 @@ RENUEVO:
 		LDI		ZH,HIGH(RAM_DISPLAY)
 		CALL	REFRESH_DISPLAY
 
-		//busco por tecla pulsada cada 200ms?
-		//hago delay de 1 seg con eso
+		;busco por tecla pulsada cada 200ms?
+		;hago delay de 1 seg con eso
 
 
 		LDI		R20, 5
@@ -779,7 +779,7 @@ VUELVO_A_VER_BOTONES:
 
 
 
-		//press A
+		;press A
 		LDI		R16, 20				;POSICION DE X
 		LDI		R17, 36				;POSICION DE Y
 		LDI		R23, 6				;ancho EN PIXELES
@@ -793,8 +793,8 @@ VUELVO_A_VER_BOTONES:
 		LDI		ZH,HIGH(RAM_DISPLAY)
 		CALL	REFRESH_DISPLAY
 
-		//busco por tecla pulsada cada 200ms
-		//hago delay de 1 seg con eso
+		;busco por tecla pulsada cada 200ms
+		;hago delay de 1 seg con eso
 
 
 		LDI		R20, 5
@@ -812,9 +812,9 @@ VUELVO_A_VER_BOTONES2:
 
 		
 
-/****************************************************************************************/
-//EMPIEZA EL JUEGO
-/****************************************************************************************/
+;***************************************************************************************/
+;EMPIEZA EL JUEGO
+;***************************************************************************************/
 ESCRIBO_0_EN_HI:				
 		LDI		R22, 0			;SI EMPIEZO Y EL HIGH SCORE ES FF EN LA EEPROM
 		CALL	ESCRIBO_HIGH_SCORE
@@ -849,11 +849,11 @@ CARGO_JUEGO:
 		CLC
 		ST		X+, R5			;GUARDO Q SALIO e incremento X para guardar el proximo dato
 		ADC		XH, R16
-		//MOV		R22, R5			;COPIO EL DATO PARA COMPARALO
+		;MOV		R22, R5			;COPIO EL DATO PARA COMPARALO
 		INC		R20				;cuento los datos que salieron
 		LDI		R25, 0			;valor de la cantidad que salio para mostrar toda la secuencia
 
-		//SIMON_DICE
+		;SIMON_DICE
 		LDI		R16, 0				;POSICION DE X
 		LDI		R17, 1				;POSICION DE Y
 		LDI		R23, 6				;ancho EN PIXELES
@@ -886,7 +886,7 @@ MUESTRO_SIG_SECUENCIA:
 
 
 TE_TOCA:
-		//TU TURNO
+		;TU TURNO
 		LDI		R16, 0				;POSICION DE X (ANTES 35)
 		LDI		R17, 1				;POSICION DE Y (ANTES 25)
 		LDI		R23, 6				;ancho EN PIXELES DEL CARACTER
@@ -907,23 +907,23 @@ OTRA_OPORTUNIDAD:
 		LDI		YL, LOW(SECUENCIA)
 		LDI		YH, HIGH(SECUENCIA)
 
-		LDI		R25, 0				//CONTADOR PARA PULSADOR DEL USUARIO
-		CALL	CONT_USER				//MUESTRO 0 PARA EL CONTADOR DEL USUARIO
+		LDI		R25, 0				;CONTADOR PARA PULSADOR DEL USUARIO
+		CALL	CONT_USER				;MUESTRO 0 PARA EL CONTADOR DEL USUARIO
 		
 		LDI		ZL,LOW(RAM_DISPLAY)
 		LDI		ZH,HIGH(RAM_DISPLAY)
 		CALL	REFRESH_DISPLAY
 
 SIGO_SECUENCIA:
-		LDI		R16, 0				//guardo 0 para sumar el carry
+		LDI		R16, 0				;guardo 0 para sumar el carry
 		CLC
 		LD		R17, Y+
 		ADC		YH, R16
 
 NO_SE_PULSO_NINGUNA:
-		CALL	PULSADORES_TODOS			//RUTINA PARA VER QUE BOTON SE APRETA
+		CALL	PULSADORES_TODOS			;RUTINA PARA VER QUE BOTON SE APRETA
 
-		MOV		R22, R7						//guardo en R22 el valor de la tecla pulsada para mostrarla en la subrutiina
+		MOV		R22, R7						;guardo en R22 el valor de la tecla pulsada para mostrarla en la subrutiina
 		CPI		R22, 5
 		BRGE	NO_SE_PULSO_NINGUNA
 
@@ -931,7 +931,7 @@ NO_SE_PULSO_NINGUNA:
 		CALL	CONT_USER
 		CALL	MUESTRO_FLECHA_PULSADA
 
-		CP		R17, R7						//R7 TIENE EL VALOR DEL BOTON PULSADO
+		CP		R17, R7						;R7 TIENE EL VALOR DEL BOTON PULSADO
 		BRNE	RESTO_VIDA
 
 		CP		R25, R20
@@ -943,9 +943,9 @@ NO_SE_PULSO_NINGUNA:
 
 RESTO_VIDA:
 		DEC		R21
-		MOV		R22, R21			//GUARDO R21 EN R22 PARA LA FUNCION CORAZONES
+		MOV		R22, R21			;GUARDO R21 EN R22 PARA LA FUNCION CORAZONES
 		BREQ	GAME_OVER
-		CALL	CORAZONES			//RUTINA PARA MOSTRAR UN CORAZON  MENOS
+		CALL	CORAZONES			;RUTINA PARA MOSTRAR UN CORAZON  MENOS
 		JMP		OTRA_OPORTUNIDAD
 	
 
@@ -956,7 +956,7 @@ GAME_OVER:
 		BRGE	ESCRIBO_NUEVO_HI
 		CALL	CLEAR_RAM
 SIGO_GAME_OVER:
-		//GAME OVER
+		;GAME OVER
 		LDI		R16, 0				;POSICION DE X
 		LDI		R17, 22				;POSICION DE Y
 		LDI		R23, 6				;ancho EN PIXELES
@@ -982,16 +982,16 @@ ESCRIBO_NUEVO_HI:
 		CALL	CLEAR_RAM
 		JMP		SIGO_GAME_OVER
 
-/***********************************************************************************************************************/
-/***********************************************************************************************************************/ 
-//PROGRAMA PARA EL SNAKE
-/***********************************************************************************************************************/
-/***********************************************************************************************************************/		
+;**********************************************************************************************************************/
+;**********************************************************************************************************************/ 
+;PROGRAMA PARA EL SNAKE
+;**********************************************************************************************************************/
+;**********************************************************************************************************************/		
 	
 SNAKE:
 		
 		
-	//CALL	LCD_INIT
+	;CALL	LCD_INIT
 	CALL	CLEAR_SCREEN
 	CALL	INIT_TIMERS
 	CALL	INIT_BUTTONS_INTERRUPT
@@ -1024,7 +1024,7 @@ NEXT_R17:
 	;CALL	PRINT_FRAME_GAME
 	CALL	REFRESH_DISPLAY
 	
-	//CALL	DELAY_1S
+	;CALL	DELAY_1S
 	
 	CALL	CLEAR_SCREEN		;Se limpia la pantalla
 	
@@ -1083,7 +1083,7 @@ KEEP_PLAYING:
 	
 	JMP	KEEP_PLAYING
 
-;/*************************************************************
+;;************************************************************
 ;Subrutina que se ejecuta cuando se pierde en el juego
 ;*/	
 
@@ -1108,7 +1108,7 @@ SNAKE_GAME_OVER:
 
 JMP	RESTART_GAME
 
-;/*************************************************************
+;;************************************************************
 ;Funcion que muestra el menu de pausa del snake
 ;*/
 
@@ -1167,7 +1167,7 @@ RETURN_FROM_PAUSE_SNAKE:
 	SEI		;Se vuelven a habilitar las interrupciones
 RET
 
-;/************************************************************
+;;***********************************************************
 ;Esta funcion inicializa el timer para utilizarlo como interrupcion
 ;para refrescar la pantalla.
 ;*/
@@ -1198,7 +1198,7 @@ INIT_TIMERS:
 	POP	R16
 RET
 
-;/*************************************************************
+;;************************************************************
 ;Esta funcion inicializa las interrupciones de PCINT para el
 ;manejo de los botones.
 ;*/
@@ -1233,7 +1233,7 @@ INIT_BUTTONS_INTERRUPT:
 	POP	R16	
 RET
 
-;/*************************************************************
+;;************************************************************
 ;Funcion que modifica la direccion (velocidad) del snake hacia arriba
 ;*/
 
@@ -1255,7 +1255,7 @@ CANT_GO_UP:
 	POP	R16
 RET
 
-;/*************************************************************
+;;************************************************************
 ;Funcion que modifica la direccion (velocidad) del snake hacia
 ;la izquierda.
 ;*/
@@ -1278,7 +1278,7 @@ CANT_GO_LEFT:
 	POP	R16
 RET
 
-;/*************************************************************
+;;************************************************************
 ;Funcion que modifica la direccion (velocidad) del snake hacia abajo.
 ;*/
 
@@ -1300,7 +1300,7 @@ CANT_GO_DOWN:
 	POP	R16
 RET
 
-;/*************************************************************
+;;************************************************************
 ;Funcion que modifica la direccion (velocidad) del snake hacia la
 ;derecha.
 ;*/
@@ -1323,7 +1323,7 @@ CANT_GO_RIGHT:
 	POP	R16	
 RET
 
-;/************************************************************
+;;***********************************************************
 ;Esta funcion dibuja el marco del juego en la RAM.
 ;*/
 
@@ -1360,7 +1360,7 @@ PRINT_NEXT_PIXEL_Y_DISPLAY:
 	POP	R17
 	POP	R16
 RET
-;/************************************************************
+;;***********************************************************
 ;Esta funcion setea un pixel dentro de la matriz de la RAM donde 
 ;se encuentran los datos que se enviarán al display.
 ;*/
@@ -1435,7 +1435,7 @@ MASK_FOUND_SET:			;Al salir del bucle ya tengo la mascara que se le debe aplicar
  	POP	R0
 RET
 
-;/************************************************************
+;;***********************************************************
 ;Esta funcion apaga un pixel dentro de la matriz de la RAM donde 
 ;se encuentran los datos que se enviarán al display.
 ;*/
@@ -1511,7 +1511,7 @@ MASK_FOUND_CLEAR:		;Al salir del bucle ya tengo la mascara que se le debe aplica
  	POP	R0
 RET
 
-;/************************************************************
+;;***********************************************************
 ;Esta funcion verifica si el pixel deseado se encuentra encendido
 ;o no. Para esto utiliza el registro R21, el cual vale cero si el
 ;pixel esta apagado y distinto de cero si esta prendido.
@@ -1591,7 +1591,7 @@ RET
 
 
 
-;/************************************************************
+;;***********************************************************
 ;Esta funcion mueve el snake una posicion, dependiendo de las
 ;direccion de la cola y la cabeza. Ademas de cargar R4 y R5 con
 ;las direcciones de la cabeza y la cola, se deben cargar las
@@ -1694,7 +1694,7 @@ TAIL_MOVED:
 	POP	R4
 RET
 
-;/************************************************************
+;;***********************************************************
 ;Esta funcion mueve la cabeza del snake una posicion hacia arriba.
 ;Luego de mover los valores de la RAM, modifica las nuevas posiciones
 ;de la cabeza en los registros correspondientes.
@@ -1721,7 +1721,7 @@ MOVE_HEAD_UP:
 	;POP	R0
 RET
 
-;/************************************************************
+;;***********************************************************
 ;Esta funcion mueve la cabeza del snake una posicion hacia la izquierda.
 ;Luego de mover los valores de la RAM, modifica las nuevas posiciones
 ;de la cabeza en los registros correspondientes.
@@ -1748,7 +1748,7 @@ MOVE_HEAD_LEFT:
 	;POP	R0
 RET	
 
-;/************************************************************
+;;***********************************************************
 ;Esta funcion mueve la cabeza del snake una posicion hacia abajo.
 ;Luego de mover los valores de la RAM, modifica las nuevas posiciones
 ;de la cabeza en los registros correspondientes.
@@ -1775,7 +1775,7 @@ MOVE_HEAD_DOWN:
 	;POP	R0
 RET
 
-;/************************************************************
+;;***********************************************************
 ;Esta funcion mueve la cabeza del snake una posicion hacia la derecha.
 ;Luego de mover los valores de la RAM, modifica las nuevas posiciones
 ;de la cabeza en los registros correspondientes.
@@ -1802,7 +1802,7 @@ MOVE_HEAD_RIGHT:
 	;POP	R0
 RET
 
-;/************************************************************
+;;***********************************************************
 ;Esta funcion mueve la cola del snake una posicion y modifica
 ;los registros necesarios.
 ;*/
@@ -1883,7 +1883,7 @@ END_MOVING_TAIL:
 	;POP	R2
 RET
 
-;/*************************************************************
+;;************************************************************
 ;Funcion que prende la fruta en el display.
 ;*/
 
@@ -1935,7 +1935,7 @@ END_SET_FRUIT:
 	POP	R0
 RET
 
-;/*************************************************************
+;;************************************************************
 ;Delay con el que se mueve el snake en la RAM.
 ;*/
 
@@ -1964,14 +1964,14 @@ RET
 
 			
 
-/******************************************************************************************************************/
-/******************************************************************************************************************/
-//EMPIEZO LAS SUBRUTINAS
-/******************************************************************************************************************/
-/******************************************************************************************************************/
+;*****************************************************************************************************************/
+;*****************************************************************************************************************/
+;EMPIEZO LAS SUBRUTINAS
+;*****************************************************************************************************************/
+;*****************************************************************************************************************/
 
 
-/******************* LCD_INIT ****************************
+;****************** LCD_INIT ****************************
 Esta funci\F3n inicializa los 6 pines a utilizar del PORT_LCD para el control de
 la pantalla, envia una se\F1al de reset, y deja todas las salidas en estado alto
 (a excepcion de Backlight para reducir el consumo de corriente).*/
@@ -2020,7 +2020,7 @@ LCD_INIT:
 	POP	R16	
 RET
 
-/***********************************************************
+;**********************************************************
 Esta funcion envia un byte de datos por el pin SDIN. Utiliza el registro R17 como
 contador, y el dato a enviar lo lee de R16 (ambos registros son guardados
 en el stack).*/
@@ -2057,7 +2057,7 @@ SEND_NEXT_BIT_DATA:
 	POP	R16			;Se sacan del stack R16 y R17
 RET
 		
-/***********************************************************
+;**********************************************************
 Esta funcion envia un byte de comandos por el pin SDIN. Utiliza el registro R17 como
 contador, y el dato a enviar lo lee de R16 (ambos registros son guardados
 en el stack).*/
@@ -2095,17 +2095,17 @@ SEND_NEXT_BIT_COMMAND:
 	POP	R16			;Se sacan del stack R16 y R17
 RET
 
-/***********************************************************/
+;**********************************************************/
 DELAY_TRANSMITION:
 	NOP
 	NOP
 RET
-/***********************************************************/
+;**********************************************************/
 
 
-/***********************************************************/
-//delay de 5ms
-/***********************************************************/
+;**********************************************************/
+;delay de 5ms
+;**********************************************************/
 
 DELAY_5ms:
 	PUSH	R17
@@ -2125,9 +2125,9 @@ LOOP1:
 ret
 
 
-/***********************************************************/
-//delay de 200 msegundo
-/***********************************************************/
+;**********************************************************/
+;delay de 200 msegundo
+;**********************************************************/
 
 DELAY_200ms:
 	PUSH	R17
@@ -2153,9 +2153,9 @@ LOOP_6:
 ret
 
 
-/***********************************************************/
-//delay de 25 msegundo
-/***********************************************************/
+;**********************************************************/
+;delay de 25 msegundo
+;**********************************************************/
 
 DELAY_25ms:
 	PUSH	R17
@@ -2180,9 +2180,9 @@ LOOP_66:
 	POP		R17
 ret
 
-/***********************************************************/
-//delay de 1 segundo
-/***********************************************************/
+;**********************************************************/
+;delay de 1 segundo
+;**********************************************************/
 
 DELAY_1s:
 	PUSH	R17
@@ -2207,9 +2207,9 @@ LOOP_1:
 	POP	R17
 ret
 
-/*********************************************************/
-//RUTINA PARA BORRAR LA RAM DEL LCD
-/*********************************************************/
+;********************************************************/
+;RUTINA PARA BORRAR LA RAM DEL LCD
+;********************************************************/
 
 
 CLEAR_SCREEN:
@@ -2240,9 +2240,9 @@ LOOP_11:
 	RET
 
 
-/*********************************************/
-//RUTINA PARA BORRAR LA RAM DEL MICRO
-/*********************************************/
+;********************************************/
+;RUTINA PARA BORRAR LA RAM DEL MICRO
+;********************************************/
 
 CLEAR_RAM:
 	PUSH	R16
@@ -2273,13 +2273,13 @@ LOOP_111:
 
 	RET
 
-/************************************************************
+;***********************************************************
 Esta funcion es para imprimir en pantalla strings de caracteres 
 El string nunca va a ser mayor a 14 chars, ya que es lo maximo
 que se puede mostrar en pantalla en horizontal.
 */
 
-/************************************************************
+;***********************************************************
 Esta funcion es para imprimir en pantalla strings de caracteres.
 En R19 debe estar guardado el largo de la cadena, en R16 y R16 las
 posiciones en X e Y respectivamente donde se desea imprimir, y en Z
@@ -2325,7 +2325,7 @@ NEXT_STRING_CHAR:
 RET
 	
 	
-/****************************************************/
+;***************************************************/
 
 LCD_PRINT_CHAR:
 	PUSH	R16 	;Posicion en X
@@ -2334,14 +2334,14 @@ LCD_PRINT_CHAR:
 	PUSH	R30
 	PUSH	R31
 
-	//LDI	R30,PCD8544_SETXADDR
-	//ADD	R16,R30			;Se suma el valor de X deseado con el comando 
-	//LDI	R30,PCD8544_SETYADDR
-	//ADD	R17,R30			;Se suma el valor de Y deseado con el comando
+	;LDI	R30,PCD8544_SETXADDR
+	;ADD	R16,R30			;Se suma el valor de X deseado con el comando 
+	;LDI	R30,PCD8544_SETYADDR
+	;ADD	R17,R30			;Se suma el valor de Y deseado con el comando
 	
-	//CALL	LCD_WRITE_COMMAND	;Se inicializa X en el valor deseado
-	//MOV		R16,R17
-	//CALL	LCD_WRITE_COMMAND	;Se inicializa Y en el valor deseado
+	;CALL	LCD_WRITE_COMMAND	;Se inicializa X en el valor deseado
+	;MOV		R16,R17
+	;CALL	LCD_WRITE_COMMAND	;Se inicializa Y en el valor deseado
 	
 	SUBI	R18,32			;Se resta el offset al caracter para conocer el valor en la tabla
 	LDI		R30,12			;Se debe multiplicar por 6 para obtener el valor de la tabla, ya que cada caracter son 6 bytes
@@ -2368,7 +2368,7 @@ SEND_NEXT_CHAR_BYTE:
 RET
 
 
-/******************************************************
+;*****************************************************
 Funcion que actualiza la pantalla. Lee los datos de la
 memoria RAM apuntada por Z y lo envia al display
 *******************************************************/
@@ -2407,61 +2407,61 @@ RET
 
 
 
-/************************************************/
-//generador de numeros RANDOM
-// LO GUARDO EN R5 ASI NO JODE
-/************************************************/
+;***********************************************/
+;generador de numeros RANDOM
+; LO GUARDO EN R5 ASI NO JODE
+;***********************************************/
 RANDOM:
 		PUSH	R16
 		PUSH	R17
 		PUSH	R18
 
-		LDI		R16, 0x70		//usa AVCC, entrada ADC0
-		STS		ADMUX, R16		//para escribir en el registro ADMUX
-		LDI		R16, 0xC1		//habilito el ADC y empiezo la conversion, con prescaler de x
+		LDI		R16, 0x70		;usa AVCC, entrada ADC0
+		STS		ADMUX, R16		;para escribir en el registro ADMUX
+		LDI		R16, 0xC1		;habilito el ADC y empiezo la conversion, con prescaler de x
 		STS		ADCSRA, R16
 NO_TERMINO:
-		LDS		R16, ADCSRA		//leo para ver si termino de convertir
+		LDS		R16, ADCSRA		;leo para ver si termino de convertir
 		CPI		R16, 0xC1
 		BREQ	NO_TERMINO
-		LDS		R16, ADCH		//leo los ultimos 2 bits
+		LDS		R16, ADCH		;leo los ultimos 2 bits
 
-		LDI		R17, 0x0E		//MAPEO PARA QUERDAR CON UNA PARTE (0X1C)ANTES
-		AND		R16, R17		//LO MAPEO ACA
+		LDI		R17, 0x0E		;MAPEO PARA QUERDAR CON UNA PARTE (0X1C)ANTES
+		AND		R16, R17		;LO MAPEO ACA
 
 		ROR		R16
-		//ROR		R16
-		//MOV		R5, R16		//lo guardo en R15 asi me queda, cuando termina la subrutina
+		;ROR		R16
+		;MOV		R5, R16		;lo guardo en R15 asi me queda, cuando termina la subrutina
 
 
-		//LDI		R17, 0x07
-		MOV		R18, R16			//para usar cpi
-		//AND		R18, R17
+		;LDI		R17, 0x07
+		MOV		R18, R16			;para usar cpi
+		;AND		R18, R17
 		CPI		R18, 0x02
-		BRLT	ES_UN_1			//SALTO SI ES MENOR O IGUAL
+		BRLT	ES_UN_1			;SALTO SI ES MENOR O IGUAL
 		CPI		R18, 0x04
-		BRLT	ES_UN_2			//SALTO SI ES MENOR O IGUAL
+		BRLT	ES_UN_2			;SALTO SI ES MENOR O IGUAL
 		CPI		R18, 0x06
-		BRLT	ES_UN_3			//SALTO SI ES MENOR O IGUAL
-		LDI		R18, 4				//CHAR 4
+		BRLT	ES_UN_3			;SALTO SI ES MENOR O IGUAL
+		LDI		R18, 4				;CHAR 4
 
 		JMP		FIN_RANDOM
 
 ES_UN_1:
-		LDI		R18, 1				//CHAR 1
+		LDI		R18, 1				;CHAR 1
 		JMP		FIN_RANDOM
 
 ES_UN_2:
-		LDI		R18, 2				//CHAR 2
+		LDI		R18, 2				;CHAR 2
 		JMP		FIN_RANDOM
 
 ES_UN_3:
-		LDI		R18, 3				//CHAR 3
+		LDI		R18, 3				;CHAR 3
 		JMP		FIN_RANDOM
 
 FIN_RANDOM:
 		
-		MOV		R5, R18				//DEVUELVO EL DATO EN R5
+		MOV		R5, R18				;DEVUELVO EL DATO EN R5
 
 
 		POP		R18
@@ -2471,9 +2471,9 @@ FIN_RANDOM:
 RET
 
 
-/*******************************************************************/
-//subrutina para usar matriz para la ram y q sea mas facil
-/*******************************************************************/
+;******************************************************************/
+;subrutina para usar matriz para la ram y q sea mas facil
+;******************************************************************/
 
 CARGO_MATRIZ_RAM:
 	PUSH	R0
@@ -2502,7 +2502,7 @@ CARGO_MATRIZ_RAM:
 	LDI		R22, 84
 	LDI		R18, 0		;hago la "division"
 	MOV		R6, R18
-	//INC		R24			;ver si anda, a veces pasa mas de 2 bytes
+	;INC		R24			;ver si anda, a veces pasa mas de 2 bytes
 
 SIGO:
 	INC		R18
@@ -2611,13 +2611,13 @@ FINISH:
 
 
 
-/************************************************************
+;***********************************************************
 Esta funcion es para imprimir en pantalla strings de caracteres 
 El string nunca va a ser mayor a 14 chars, ya que es lo maximo
 que se puede mostrar en pantalla en horizontal.
 */
 
-/************************************************************
+;***********************************************************
 Esta funcion es para escribir en RAM strings de caracteres.
 En R19 debe estar guardado el largo de la cadena, en R16 y R16 las
 posiciones en X e Y respectivamente donde se desea imprimir, y en Z
@@ -2661,9 +2661,9 @@ NEXT_STRING_CHAR2:
 RET
 	
 	
-/****************************************************/
-//RUTINA PARA ESCRIBIR CARACTERES EN LA RAM
-/****************************************************/
+;***************************************************/
+;RUTINA PARA ESCRIBIR CARACTERES EN LA RAM
+;***************************************************/
 
 RAM_PRINT_CHAR:
 	PUSH	R16 	;Posicion en X
@@ -2677,11 +2677,11 @@ RAM_PRINT_CHAR:
 	PUSH	R31
 
 	LDI		R23, 6
-	//LDI		R24, 1			;ANCHO Y ALTO DE LOS CARACTERES
+	;LDI		R24, 1			;ANCHO Y ALTO DE LOS CARACTERES
 	
 	SUBI	R18,32			;Se resta el offset al caracter para conocer el valor en la tabla
 	LDI		R30,12			;Se debe multiplicar por 12 para obtener el valor de la tabla, ya que cada caracter son 12 bytes
-	//CLC
+	;CLC
 	MUL		R18, R30		;El resultado se guarda en R1-R0 (el menos significativo en R0)
 	
 	LDI		ZL,LOW(CHARS_TABLE<<1)
@@ -2690,7 +2690,7 @@ RAM_PRINT_CHAR:
 	ADD		ZL,R0
 	ADC 	ZH,R1			;Se suma el offset para el caracter deseado
 
-	//LPM		R16,Z+			;Leo el valor de la tabla y lo guardo en R18
+	;LPM		R16,Z+			;Leo el valor de la tabla y lo guardo en R18
 
 	MOV		YL, ZL
 	MOV		YH, ZH			;copio la direccion donde apunta Z
@@ -2713,15 +2713,15 @@ RAM_PRINT_CHAR:
 RET
 
 
-/**************************************************************************/
-//subrutina para los pulsadores
-//Son 6 botones
-//0 - arriba, 1 - izq, 2 - der, 3 - abajo, 4 - aceptar, 5 - pausa
-// DEVUELVO EL VALOR EN R7
-/**************************************************************************/
+;*************************************************************************/
+;subrutina para los pulsadores
+;Son 6 botones
+;0 - arriba, 1 - izq, 2 - der, 3 - abajo, 4 - aceptar, 5 - pausa
+; DEVUELVO EL VALOR EN R7
+;*************************************************************************/
 
-//FALTA MODIFICAR TODO SOLO ESTA LA PRUEBA QUE HICE
-/*
+;FALTA MODIFICAR TODO SOLO ESTA LA PRUEBA QUE HICE
+;
 PULSADORES:
 
 		PUSH	R18
@@ -2747,7 +2747,7 @@ SIGO_AL_PROG:
 		MOV		R18, R19
 		CALL	LCD_PRINT_CHAR
 		CALL	DELAY_1S
-		//JMP		OTRO_PULSO
+		;JMP		OTRO_PULSO
 
 
 		POP		R20
@@ -2757,12 +2757,12 @@ SIGO_AL_PROG:
 RET
 */
 
-/*******************************************************************************************/
-//subrutina para los pulsadores
-//Son 6 botones
-//1 - arriba, 2 - izq, 3 - der, 4 - abajo, 5 - aceptar, 6 - pausa, 7 -ningun boton pulsado
-// DEVUELVO EL VALOR EN R7
-/*******************************************************************************************/
+;******************************************************************************************/
+;subrutina para los pulsadores
+;Son 6 botones
+;1 - arriba, 2 - izq, 3 - der, 4 - abajo, 5 - aceptar, 6 - pausa, 7 -ningun boton pulsado
+; DEVUELVO EL VALOR EN R7
+;******************************************************************************************/
 
 PULSADORES_TODOS:
 
@@ -2780,7 +2780,7 @@ PULSADORES_TODOS:
 		SBIC	PINC, 5					;boton aceptar o boton A
 		JMP		BOTON_ACEPTAR
 
-		//boton pausa con interrupcion
+		;boton pausa con interrupcion
 
 		LDI		R18, 7
 		MOV		R7, R18					;devuelvo el valor 7 si no hay teclas pulsadas
@@ -2822,9 +2822,9 @@ RET
 
 
 
-/*************************************************************************/
-//cargo los graficos en RAM para el simon dice
-/*************************************************************************/
+;************************************************************************/
+;cargo los graficos en RAM para el simon dice
+;************************************************************************/
 		
 LOAD_SIMON:
 
@@ -2839,7 +2839,7 @@ LOAD_SIMON:
 
 		CALL	CLEAR_RAM
 
-		//SIMON_DICE
+		;SIMON_DICE
 		LDI		R16, 0				;POSICION DE X
 		LDI		R17, 1				;POSICION DE Y
 		LDI		R23, 6				;ancho EN PIXELES
@@ -2848,7 +2848,7 @@ LOAD_SIMON:
 		LDI		ZL, LOW(SIMON<<1)
 		LDI		ZH, HIGH(SIMON<<1)
 		CALL	RAM_PRINT_STRING
-		//numeros
+		;numeros
 		LDI		R16, 40				;POSICION DE X
 		LDI		R17, 25				;POSICION DE Y
 		LDI		R23, 6				;ancho EN PIXELES DEL CARACTER
@@ -2857,7 +2857,7 @@ LOAD_SIMON:
 		LDI		ZL, LOW(NUMEROS<<1)
 		LDI		ZH, HIGH(NUMEROS<<1)
 		CALL	RAM_PRINT_STRING
-		//HIGH_SCORE
+		;HIGH_SCORE
 		LDI		R16, 40				;POSICION DE X
 		LDI		R17, 13				;POSICION DE Y
 		LDI		R23, 6				;ancho EN PIXELES DEL CARACTER
@@ -2866,8 +2866,8 @@ LOAD_SIMON:
 		LDI		ZL, LOW(HIGH_SC<<1)
 		LDI		ZH, HIGH(HIGH_SC<<1)
 		CALL	RAM_PRINT_STRING
-		/*
-		//TU TURNO
+		;
+		;TU TURNO
 		LDI		R16, 35				;POSICION DE X
 		LDI		R17, 25				;POSICION DE Y
 		LDI		R23, 6				;ancho EN PIXELES DEL CARACTER
@@ -2877,7 +2877,7 @@ LOAD_SIMON:
 		LDI		ZH, HIGH(TU_TURNO<<1)
 		CALL	RAM_PRINT_STRING
 		*/
-		//CORAZON1
+		;CORAZON1
 		LDI		R16, 40				;POSICION DE X
 		LDI		R17, 37				;POSICION DE Y
 		LDI		R23, 10				;ancho EN PIXELES
@@ -2885,7 +2885,7 @@ LOAD_SIMON:
 		LDI		ZL, LOW(CORAZON_NEG<<1)
 		LDI		ZH, HIGH(CORAZON_NEG<<1)
 		CALL	CARGO_MATRIZ_RAM
-		//CORAZON2
+		;CORAZON2
 		LDI		R16, 55				;POSICION DE X
 		LDI		R17, 37				;POSICION DE Y
 		LDI		R23, 10				;ancho EN PIXELES
@@ -2893,7 +2893,7 @@ LOAD_SIMON:
 		LDI		ZL, LOW(CORAZON_NEG<<1)
 		LDI		ZH, HIGH(CORAZON_NEG<<1)
 		CALL	CARGO_MATRIZ_RAM
-		//CORAZON3
+		;CORAZON3
 		LDI		R16, 70				;POSICION DE X
 		LDI		R17, 37				;POSICION DE Y
 		LDI		R23, 10				;ancho EN PIXELES
@@ -2901,7 +2901,7 @@ LOAD_SIMON:
 		LDI		ZL, LOW(CORAZON_NEG<<1)
 		LDI		ZH, HIGH(CORAZON_NEG<<1)
 		CALL	CARGO_MATRIZ_RAM
-		//FLECHA_UP
+		;FLECHA_UP
 		LDI		R16, 12				;POSICION DE X
 		LDI		R17, 12				;POSICION DE Y
 		LDI		R23, 9				;ancho EN PIXELES
@@ -2909,7 +2909,7 @@ LOAD_SIMON:
 		LDI		ZL, LOW(FLECHA_UP<<1)
 		LDI		ZH, HIGH(FLECHA_UP<<1)
 		CALL	CARGO_MATRIZ_RAM
-		//FLECHA_L
+		;FLECHA_L
 		LDI		R16, 0				;POSICION DE X
 		LDI		R17, 23				;POSICION DE Y
 		LDI		R23, 11				;ancho EN PIXELES
@@ -2917,7 +2917,7 @@ LOAD_SIMON:
 		LDI		ZL, LOW(FLECHA_L<<1)
 		LDI		ZH, HIGH(FLECHA_L<<1)
 		CALL	CARGO_MATRIZ_RAM
-		//FLECHA_R
+		;FLECHA_R
 		LDI		R16, 22				;POSICION DE X
 		LDI		R17, 23				;POSICION DE Y
 		LDI		R23, 11				;ancho EN PIXELES
@@ -2925,7 +2925,7 @@ LOAD_SIMON:
 		LDI		ZL, LOW(FLECHA_R<<1)
 		LDI		ZH, HIGH(FLECHA_R<<1)
 		CALL	CARGO_MATRIZ_RAM
-		//FLECHA_DWN
+		;FLECHA_DWN
 		LDI		R16, 12				;POSICION DE X
 		LDI		R17, 32				;POSICION DE Y (32)
 		LDI		R23, 9				;ancho EN PIXELES
@@ -2953,23 +2953,23 @@ LOAD_SIMON:
 		
 
 
-/********************************************************************************************/
-//cantidad de datos que dijo simon
-//convertir el dato a BCD para mostrarlo bien en pantalla
-//el valor debe ir en R25
-/********************************************************************************************/
+;*******************************************************************************************/
+;cantidad de datos que dijo simon
+;convertir el dato a BCD para mostrarlo bien en pantalla
+;el valor debe ir en R25
+;*******************************************************************************************/
 
 CONT_SIMON:
 		PUSH	R0
 		PUSH	R1
 		PUSH	R16
 		PUSH	R17			
-		PUSH	R18			//valor del resto de la division "numeros"
-		PUSH	R20			//valor del decimal para la division
-		PUSH	R22			//guardo 48 para sumar al valor y que me de el caracter para mostrar
+		PUSH	R18			;valor del resto de la division "numeros"
+		PUSH	R20			;valor del decimal para la division
+		PUSH	R22			;guardo 48 para sumar al valor y que me de el caracter para mostrar
 		PUSH	R23
 		PUSH	R24
-		PUSH	R25			//VALOR DE LOS DATOS
+		PUSH	R25			;VALOR DE LOS DATOS
 			
 
 		LDI		R16, 10
@@ -2994,23 +2994,23 @@ TERMINE_LA_DIV_2:
 
 
 
-		//numeros unidad
+		;numeros unidad
 		LDI		R16, 77				;POSICION DE X
 		LDI		R17, 25				;POSICION DE Y
 		LDI		R23, 6				;ancho EN PIXELES DEL CARACTER
 		LDI		R24, 1				;ALTO EN BYTES 2 para cuando no esta centrado
 		LDI		R22, 48
-		ADD		R18, R22			//LE SUMO 48 PARA MOSTRAR EL NUMERO
+		ADD		R18, R22			;LE SUMO 48 PARA MOSTRAR EL NUMERO
 		CALL	RAM_PRINT_CHAR
 
-		//numeros decena
+		;numeros decena
 		LDI		R16, 71				;POSICION DE X
 		LDI		R17, 25				;POSICION DE Y
 		LDI		R23, 6				;ancho EN PIXELES DEL CARACTER
 		LDI		R24, 1				;ALTO EN BYTES 2 para cuando no esta centrado
-		MOV		R18, R20			//R20 ANTES, VEO Q RANDOM SALIO
+		MOV		R18, R20			;R20 ANTES, VEO Q RANDOM SALIO
 		LDI		R22, 48
-		ADD		R18, R22			//LE SUMO 48 PARA MOSTRAR EL NUMERO
+		ADD		R18, R22			;LE SUMO 48 PARA MOSTRAR EL NUMERO
 		CALL	RAM_PRINT_CHAR
 
 
@@ -3028,9 +3028,9 @@ TERMINE_LA_DIV_2:
 		RET
 
 
-/********************************************************************************************/
-//MUESTRO LA FLECHA PULSADA EN PANTALLA Y DESPUES SIGO CON EL PROGRAMA
-/********************************************************************************************/
+;*******************************************************************************************/
+;MUESTRO LA FLECHA PULSADA EN PANTALLA Y DESPUES SIGO CON EL PROGRAMA
+;*******************************************************************************************/
 
 MUESTRO_FLECHA_PULSADA:
 		
@@ -3044,7 +3044,7 @@ MUESTRO_FLECHA_PULSADA:
 		PUSH	ZH
 
 
-		//MOV		R22, R7			;copio el valor de la tecla pulsada en R22
+		;MOV		R22, R7			;copio el valor de la tecla pulsada en R22
 
 		CPI		R22, 1
 		BREQ	CARGO_1			;cargo arriba
@@ -3066,7 +3066,7 @@ CARGO_3:
 CARGO_ABAJO:
 		LDI		R22, 12				;PARA VERLO GRIS 1 SEG
 ABAJO_GRIS:
-		//FLECHA_DWN_NEG
+		;FLECHA_DWN_NEG
 		LDI		R16, 12				;POSICION DE X
 		LDI		R17, 32				;POSICION DE Y (32)
 		LDI		R23, 9				;ancho EN PIXELES
@@ -3081,7 +3081,7 @@ ABAJO_GRIS:
 
 
 		
-		//FLECHA_DWN
+		;FLECHA_DWN
 		LDI		R16, 12				;POSICION DE X
 		LDI		R17, 32				;POSICION DE Y (32)
 		LDI		R23, 9				;ancho EN PIXELES
@@ -3104,7 +3104,7 @@ ABAJO_GRIS:
 CARGO_ARRIBA:
 		LDI		R22, 12				;PARA VERLO GRIS 1 SEG
 ARRIBA_GRIS:
-		//FLECHA_UP_NEG
+		;FLECHA_UP_NEG
 		LDI		R16, 12				;POSICION DE X
 		LDI		R17, 12				;POSICION DE Y
 		LDI		R23, 9				;ancho EN PIXELES
@@ -3117,9 +3117,9 @@ ARRIBA_GRIS:
 		LDI		ZH,HIGH(RAM_DISPLAY)
 		CALL	REFRESH_DISPLAY
 
-		//CALL	DELAY_1S
+		;CALL	DELAY_1S
 
-		//FLECHA_UP
+		;FLECHA_UP
 		LDI		R16, 12				;POSICION DE X
 		LDI		R17, 12				;POSICION DE Y
 		LDI		R23, 9				;ancho EN PIXELES
@@ -3144,7 +3144,7 @@ ARRIBA_GRIS:
 CARGO_IZQ:
 		LDI		R22, 12				;PARA VERLO GRIS 1 SEG
 IZQ_GRIS:
-		//FLECHA_L_NEG
+		;FLECHA_L_NEG
 		LDI		R16, 0				;POSICION DE X
 		LDI		R17, 23				;POSICION DE Y
 		LDI		R23, 11				;ancho EN PIXELES
@@ -3158,9 +3158,9 @@ IZQ_GRIS:
 		LDI		ZH,HIGH(RAM_DISPLAY)
 		CALL	REFRESH_DISPLAY
 
-		//CALL	DELAY_1S
+		;CALL	DELAY_1S
 
-		//FLECHA_L
+		;FLECHA_L
 		LDI		R16, 0				;POSICION DE X
 		LDI		R17, 23				;POSICION DE Y
 		LDI		R23, 11				;ancho EN PIXELES
@@ -3186,7 +3186,7 @@ IZQ_GRIS:
 CARGO_DER:
 		LDI		R22, 12				;PARA VERLO GRIS 1 SEG
 DER_GRIS:
-		//FLECHA_R
+		;FLECHA_R
 		LDI		R16, 22				;POSICION DE X
 		LDI		R17, 23				;POSICION DE Y
 		LDI		R23, 11				;ancho EN PIXELES
@@ -3199,9 +3199,9 @@ DER_GRIS:
 		LDI		ZH,HIGH(RAM_DISPLAY)
 		CALL	REFRESH_DISPLAY
 
-		//CALL	DELAY_1S
+		;CALL	DELAY_1S
 
-		//FLECHA_R
+		;FLECHA_R
 		LDI		R16, 22				;POSICION DE X
 		LDI		R17, 23				;POSICION DE Y
 		LDI		R23, 11				;ancho EN PIXELES
@@ -3235,9 +3235,9 @@ FIN_MUESTRO_FLECHAS:
 
 RET
 
-/***************************************************************************************/
-//MUESTRO LOS CORAZONES
-/***************************************************************************************/
+;**************************************************************************************/
+;MUESTRO LOS CORAZONES
+;**************************************************************************************/
 
 CORAZONES:
 
@@ -3255,7 +3255,7 @@ CORAZONES:
 		CPI		R22, 2
 		BREQ	CORAZON2_BLANCO
 
-		//CORAZON1_BLANCO
+		;CORAZON1_BLANCO
 		LDI		R16, 40				;POSICION DE X
 		LDI		R17, 37				;POSICION DE Y
 		LDI		R23, 10				;ancho EN PIXELES
@@ -3267,7 +3267,7 @@ CORAZONES:
 		JMP		TERMINO_CORAZONES
 
 CORAZON2_BLANCO:
-		//CORAZON2
+		;CORAZON2
 		LDI		R16, 55				;POSICION DE X
 		LDI		R17, 37				;POSICION DE Y
 		LDI		R23, 10				;ancho EN PIXELES
@@ -3279,7 +3279,7 @@ CORAZON2_BLANCO:
 		JMP		TERMINO_CORAZONES
 
 CORAZON3_BLANCO:
-		//CORAZON3
+		;CORAZON3
 		LDI		R16, 70				;POSICION DE X
 		LDI		R17, 37				;POSICION DE Y
 		LDI		R23, 10				;ancho EN PIXELES
@@ -3302,9 +3302,9 @@ TERMINO_CORAZONES:
 RET
 
 
-/***************************************************************************************/
-//ESCRIBO HIGH SCORE DESDE EL EEPROM
-/***************************************************************************************/
+;**************************************************************************************/
+;ESCRIBO HIGH SCORE DESDE EL EEPROM
+;**************************************************************************************/
 
 ESCRIBO_HIGH_SCORE:
 
@@ -3343,10 +3343,10 @@ RET
 
 
 
-/***************************************************************************************/
-//LEO HIGH SCORE DESDE EL EEPROM Y LO MUESTRO
-//DEVUELVO EL VALOR EN R9 PARA COMPARARLO DESPUES
-/***************************************************************************************/
+;**************************************************************************************/
+;LEO HIGH SCORE DESDE EL EEPROM Y LO MUESTRO
+;DEVUELVO EL VALOR EN R9 PARA COMPARARLO DESPUES
+;**************************************************************************************/
 
 LEO_HIGH_SCORE:
 
@@ -3409,28 +3409,28 @@ TERMINE_LA_DIV_3:
 
 
 ESCRIBO_NUMEROS:
-		//numeros unidad
+		;numeros unidad
 		LDI		R16, 76				;POSICION DE X
 		LDI		R17, 13				;POSICION DE Y
 		LDI		R23, 6				;ancho EN PIXELES DEL CARACTER
 		LDI		R24, 2				;ALTO EN BYTES 2 para cuando no esta centrado
 		LDI		R22, 48
-		ADD		R18, R22			//LE SUMO 48 PARA MOSTRAR EL NUMERO
+		ADD		R18, R22			;LE SUMO 48 PARA MOSTRAR EL NUMERO
 		CALL	RAM_PRINT_CHAR
 
-		//numeros decena
+		;numeros decena
 		LDI		R16, 70				;POSICION DE X
 		LDI		R17, 13				;POSICION DE Y
 		LDI		R23, 6				;ancho EN PIXELES DEL CARACTER
 		LDI		R24, 2				;ALTO EN BYTES 2 para cuando no esta centrado
-		MOV		R18, R25			//R20 ANTES, VEO Q RANDOM SALIO
+		MOV		R18, R25			;R20 ANTES, VEO Q RANDOM SALIO
 		LDI		R22, 48
-		ADD		R18, R22			//LE SUMO 48 PARA MOSTRAR EL NUMERO
+		ADD		R18, R22			;LE SUMO 48 PARA MOSTRAR EL NUMERO
 		CALL	RAM_PRINT_CHAR
 
 		LDI		ZL,LOW(RAM_DISPLAY)
 		LDI		ZH,HIGH(RAM_DISPLAY)
-		CALL	REFRESH_DISPLAY		//LO MUESTRO EN PANTALLA
+		CALL	REFRESH_DISPLAY		;LO MUESTRO EN PANTALLA
 
 
 		POP		ZH
@@ -3446,23 +3446,23 @@ ESCRIBO_NUMEROS:
 RET
 
 
-/********************************************************************************************/
-//cantidad de datos que introdujo el USUARIO
-//convertir el dato a BCD para mostrarlo bien en pantalla
-//el valor debe ir en R25
-/********************************************************************************************/
+;*******************************************************************************************/
+;cantidad de datos que introdujo el USUARIO
+;convertir el dato a BCD para mostrarlo bien en pantalla
+;el valor debe ir en R25
+;*******************************************************************************************/
 
 CONT_USER:
 		PUSH	R0
 		PUSH	R1
 		PUSH	R16
 		PUSH	R17			
-		PUSH	R18			//valor del resto de la division "numeros"
-		PUSH	R20			//valor del decimal para la division
-		PUSH	R22			//guardo 48 para sumar al valor y que me de el caracter para mostrar
+		PUSH	R18			;valor del resto de la division "numeros"
+		PUSH	R20			;valor del decimal para la division
+		PUSH	R22			;guardo 48 para sumar al valor y que me de el caracter para mostrar
 		PUSH	R23
 		PUSH	R24
-		PUSH	R25			//VALOR DE LOS DATOS
+		PUSH	R25			;VALOR DE LOS DATOS
 			
 
 		LDI		R16, 10
@@ -3487,23 +3487,23 @@ TERMINE_LA_DIV_4:
 
 
 
-		//numeros unidad
+		;numeros unidad
 		LDI		R16, 46				;POSICION DE X
 		LDI		R17, 25				;POSICION DE Y
 		LDI		R23, 6				;ancho EN PIXELES DEL CARACTER
 		LDI		R24, 1				;ALTO EN BYTES 2 para cuando no esta centrado
 		LDI		R22, 48
-		ADD		R18, R22			//LE SUMO 48 PARA MOSTRAR EL NUMERO
+		ADD		R18, R22			;LE SUMO 48 PARA MOSTRAR EL NUMERO
 		CALL	RAM_PRINT_CHAR
 
-		//numeros decena
+		;numeros decena
 		LDI		R16, 40				;POSICION DE X
 		LDI		R17, 25				;POSICION DE Y
 		LDI		R23, 6				;ancho EN PIXELES DEL CARACTER
 		LDI		R24, 1				;ALTO EN BYTES 2 para cuando no esta centrado
-		MOV		R18, R20			//R20 ANTES, VEO Q RANDOM SALIO
+		MOV		R18, R20			;R20 ANTES, VEO Q RANDOM SALIO
 		LDI		R22, 48
-		ADD		R18, R22			//LE SUMO 48 PARA MOSTRAR EL NUMERO
+		ADD		R18, R22			;LE SUMO 48 PARA MOSTRAR EL NUMERO
 		CALL	RAM_PRINT_CHAR
 
 
