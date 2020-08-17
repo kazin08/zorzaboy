@@ -1971,10 +1971,11 @@ RET
 ;*****************************************************************************************************************/
 
 
-;****************** LCD_INIT ****************************
-Esta funci\F3n inicializa los 6 pines a utilizar del PORT_LCD para el control de
-la pantalla, envia una se\F1al de reset, y deja todas las salidas en estado alto
-(a excepcion de Backlight para reducir el consumo de corriente).*/
+;****************** LCD_INIT *************************************************************************************/
+;Esta funci\F3n inicializa los 6 pines a utilizar del PORT_LCD para el control de
+;la pantalla, envia una se\F1al de reset, y deja todas las salidas en estado alto
+;(a excepcion de Backlight para reducir el consumo de corriente).
+;*****************************************************************************************************************/
 
 LCD_INIT:
 	PUSH	R16		;Se guarda el contenido de R16 en el stack
@@ -2020,10 +2021,11 @@ LCD_INIT:
 	POP	R16	
 RET
 
-;**********************************************************
-Esta funcion envia un byte de datos por el pin SDIN. Utiliza el registro R17 como
-contador, y el dato a enviar lo lee de R16 (ambos registros son guardados
-en el stack).*/
+;*****************************************************************************************************************/
+;Esta funcion envia un byte de datos por el pin SDIN. Utiliza el registro R17 como
+;contador, y el dato a enviar lo lee de R16 (ambos registros son guardados
+;en el stack).
+;*****************************************************************************************************************/
 
 LCD_WRITE_DATA:
 	PUSH	R16	
@@ -2057,10 +2059,11 @@ SEND_NEXT_BIT_DATA:
 	POP	R16			;Se sacan del stack R16 y R17
 RET
 		
-;**********************************************************
-Esta funcion envia un byte de comandos por el pin SDIN. Utiliza el registro R17 como
-contador, y el dato a enviar lo lee de R16 (ambos registros son guardados
-en el stack).*/
+;*****************************************************************************************************************/
+;Esta funcion envia un byte de comandos por el pin SDIN. Utiliza el registro R17 como
+;contador, y el dato a enviar lo lee de R16 (ambos registros son guardados
+;en el stack).
+;*****************************************************************************************************************/
 
 LCD_WRITE_COMMAND:
 	PUSH	R16	
@@ -2273,18 +2276,18 @@ LOOP_111:
 
 	RET
 
-;***********************************************************
-Esta funcion es para imprimir en pantalla strings de caracteres 
-El string nunca va a ser mayor a 14 chars, ya que es lo maximo
-que se puede mostrar en pantalla en horizontal.
-*/
+;*****************************************************************************************************************/
+;Esta funcion es para imprimir en pantalla strings de caracteres 
+;El string nunca va a ser mayor a 14 chars, ya que es lo maximo
+;que se puede mostrar en pantalla en horizontal.
+;*****************************************************************************************************************/
 
-;***********************************************************
-Esta funcion es para imprimir en pantalla strings de caracteres.
-En R19 debe estar guardado el largo de la cadena, en R16 y R16 las
-posiciones en X e Y respectivamente donde se desea imprimir, y en Z
-debe estar guardada la direccion del primer byte de la cadena.
-*/
+;*****************************************************************************************************************/
+;Esta funcion es para imprimir en pantalla strings de caracteres.
+;En R19 debe estar guardado el largo de la cadena, en R16 y R16 las
+;posiciones en X e Y respectivamente donde se desea imprimir, y en Z
+;debe estar guardada la direccion del primer byte de la cadena.
+;*****************************************************************************************************************/
 
 LCD_PRINT_STRING:
 	PUSH	R16	;Valor de X
@@ -2369,8 +2372,8 @@ RET
 
 
 ;*****************************************************
-Funcion que actualiza la pantalla. Lee los datos de la
-memoria RAM apuntada por Z y lo envia al display
+;Funcion que actualiza la pantalla. Lee los datos de la
+;memoria RAM apuntada por Z y lo envia al display
 *******************************************************/
 
 REFRESH_DISPLAY:
@@ -2611,18 +2614,18 @@ FINISH:
 
 
 
-;***********************************************************
-Esta funcion es para imprimir en pantalla strings de caracteres 
-El string nunca va a ser mayor a 14 chars, ya que es lo maximo
-que se puede mostrar en pantalla en horizontal.
-*/
+;*****************************************************************************************************************/
+;Esta funcion es para imprimir en pantalla strings de caracteres 
+;El string nunca va a ser mayor a 14 chars, ya que es lo maximo
+;que se puede mostrar en pantalla en horizontal.
+;*****************************************************************************************************************/
 
-;***********************************************************
-Esta funcion es para escribir en RAM strings de caracteres.
-En R19 debe estar guardado el largo de la cadena, en R16 y R16 las
-posiciones en X e Y respectivamente donde se desea imprimir, y en Z
-debe estar guardada la direccion del primer byte de la cadena.
-*/
+;*****************************************************************************************************************/
+;Esta funcion es para escribir en RAM strings de caracteres.
+;En R19 debe estar guardado el largo de la cadena, en R16 y R16 las
+;posiciones en X e Y respectivamente donde se desea imprimir, y en Z
+;debe estar guardada la direccion del primer byte de la cadena.
+;*****************************************************************************************************************/
 
 RAM_PRINT_STRING:
 	PUSH	R16	;Valor de X
