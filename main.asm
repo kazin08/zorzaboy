@@ -1514,7 +1514,7 @@ RET
 CHECK_IF_PIXEL_SET_IN_RAM_DISPLAY:
 	PUSH	R0
 	PUSH	R1
-	;PUSH	R21	;value ofretorno (no se guarda en el stack para poder modificarlo)
+	;PUSH	R21	;value ofretorno (don't save in the stack so it can be modify)
 	PUSH 	R16	;value ofX in the matrix (0-83)
 	PUSH 	R17	;value ofY in the matrix (0-47)
 	PUSH	R18
@@ -1587,10 +1587,10 @@ RET
 
 ;************************************************************
 ;This routine move snake une position, depends of the
-;direction of the tail y la cabeza. Ademas de cargar R4 y R5 con
-;las direcciones of the head y la cola, se deben cargar las
-;POSITIONes, ya que esta funcion utiliza funciones internas
-;que utilizan esos datos
+;direction of the tail and the head. Load R4 and R5 with
+;the directions of the head y the tail, must load the
+;POSITIONs, because this routine use internal routines
+;that use this data
 ;************************************************************/
 
 MOVE_SNAKE_ONE_POSITION:
@@ -1609,8 +1609,8 @@ MOVE_SNAKE_ONE_POSITION:
 	LDI	R18,0
 	LDI	R19,0
 	
-	LDI	R16,UP_DIRECTION		;Cargo la direccion hacia Up
-	CP	R4,R16				;La comparo con la direccion recibida
+	LDI	R16,UP_DIRECTION		;load the direction to Up
+	CP	R4,R16				;compare with the recieve direction
 	BRNE	NOT_UP_DIRECTION_HEAD
 	
 	MOV	R16,R0
@@ -1619,13 +1619,13 @@ MOVE_SNAKE_ONE_POSITION:
 	CALL	CHECK_IF_PIXEL_SET_IN_RAM_DISPLAY
 	CP	R18,R21
 	BREQ	UP_PIXEL_NOT_SET
-	LDI	R19,1				;Se verifica si el pixel esta prendido para saber si se va a agarrar la fruta
+	LDI	R19,1				;check if the pixel is on to know if the snake will eat the fruit
 UP_PIXEL_NOT_SET:	
 	CALL	MOVE_HEAD_UP
 	
 NOT_UP_DIRECTION_HEAD:
-	LDI	R16,LEFT_DIRECTION		;Cargo la direccion hacia the Left	
-	CP	R4,R16				;La comparo con la direccion recibida
+	LDI	R16,LEFT_DIRECTION		;load the direction to the Left	
+	CP	R4,R16				;compare with the recieve direction
 	BRNE	NOT_LEFT_DIRECTION_HEAD
 	
 	MOV	R16,R0
@@ -1634,13 +1634,13 @@ NOT_UP_DIRECTION_HEAD:
 	CALL	CHECK_IF_PIXEL_SET_IN_RAM_DISPLAY
 	CP	R18,R21
 	BREQ	LEFT_PIXEL_NOT_SET
-	LDI	R19,1				;Se verifica si el pixel esta prendido para saber si se va a agarrar la fruta
+	LDI	R19,1				;check if the pixel is on to know if the snake will eat the fruit
 LEFT_PIXEL_NOT_SET:
 	CALL	MOVE_HEAD_LEFT
 	
 NOT_LEFT_DIRECTION_HEAD:
-	LDI	R16,DOWN_DIRECTION		;Cargo la direccion hacia Down	
-	CP	R4,R16				;La comparo con la direccion recibida
+	LDI	R16,DOWN_DIRECTION		;load the direction to Down	
+	CP	R4,R16				;compare with the recieve direction
 	BRNE	NOT_DOWN_DIRECTION_HEAD
 	
 	MOV	R16,R0
@@ -1649,13 +1649,13 @@ NOT_LEFT_DIRECTION_HEAD:
 	CALL	CHECK_IF_PIXEL_SET_IN_RAM_DISPLAY
 	CP	R18,R21
 	BREQ	DOWN_PIXEL_NOT_SET
-	LDI	R19,1				;Se verifica si el pixel esta prendido para saber si se va a agarrar la fruta
+	LDI	R19,1				;check if the pixel is on to know if the snake will eat the fruit
 DOWN_PIXEL_NOT_SET:
 	CALL	MOVE_HEAD_DOWN
 	
 NOT_DOWN_DIRECTION_HEAD:
-	LDI	R16,RIGHT_DIRECTION		;Cargo la direccion hacia la Rigth
-	CP	R4,R16				;La comparo con la direccion recibida
+	LDI	R16,RIGHT_DIRECTION		;load the direction to la Rigth
+	CP	R4,R16				;compare with the recieve direction
 	BRNE	NOT_RIGHT_DIRECTION_HEAD
 	
 	MOV	R16,R0
@@ -1664,18 +1664,18 @@ NOT_DOWN_DIRECTION_HEAD:
 	CALL	CHECK_IF_PIXEL_SET_IN_RAM_DISPLAY
 	CP	R18,R21
 	BREQ	RIGHT_PIXEL_NOT_SET
-	LDI	R19,1				;Se verifica si el pixel esta prendido para saber si se va a agarrar la fruta
+	LDI	R19,1				;check if the pixel is on to know if the snake will eat the fruit
 RIGHT_PIXEL_NOT_SET:
 	CALL	MOVE_HEAD_RIGHT
 	
 NOT_RIGHT_DIRECTION_HEAD:
 	
 	CP	R18,R19
-	BRNE	DONT_MOVE_TAIL			;Si se agarro la fruta R19 vale 1, por lo que no se debe apagar el pixel of the tail
+	BRNE	DONT_MOVE_TAIL			;if snake take the fruit R19 is 1, so the pixel of the tail will not turn off
 	CALL	MOVE_TAIL_ONE_POSITION
 	RJMP	TAIL_MOVED
 DONT_MOVE_TAIL:
-	CALL	SET_FRUIT			;Si se agarro la fruta, se debe prender otra en el display
+	CALL	SET_FRUIT			;if snake take the fruit, it has to turn on another in the display
 TAIL_MOVED:
 	
 	POP	ZH
@@ -1689,9 +1689,9 @@ TAIL_MOVED:
 RET
 
 ;************************************************************
-;Esta funcion mueve la cabeza del snake una POSITION hacia Up.
-;Luego de mover los valores de la RAM, modifica las nuevas POSITIONes
-;of the head en los registros correspondientes.
+;this routine move the head of the snake one POSITION to Up.
+;after move the values of the RAM, modify the new POSITIONs
+;of the head in the correct registers.
 ;************************************************************/
 
 MOVE_HEAD_UP:
@@ -1699,10 +1699,10 @@ MOVE_HEAD_UP:
 	;PUSH	R1	;POSITION en Y of the head
 	PUSH	R16
 	PUSH	R17
-	PUSH	ZL	;Direccion de la RAM
-	PUSH	ZH	;Direccion de la RAM
+	PUSH	ZL	;direction of the RAM
+	PUSH	ZH	;direction of the RAM
 	
-	DEC	R1	;Se mueve la cabeza un pixel hacia Up
+	DEC	R1	;move the head one pixel to Up
 	MOV	R16,R0
 	MOV	R17,R1	
 	CALL	SET_PIXEL_IN_RAM_DISPLAY
@@ -1716,9 +1716,9 @@ MOVE_HEAD_UP:
 RET
 
 ;************************************************************
-;Esta funcion mueve la cabeza del snake una POSITION hacia the Left.
-;Luego de mover los valores de la RAM, modifica las nuevas POSITIONes
-;of the head en los registros correspondientes.
+;this routine move the head of the snake one POSITION to the Left.
+;after move the values of the RAM, modify the new positions
+;of the head in the correct registers.
 ;************************************************************/
 
 MOVE_HEAD_LEFT:
@@ -1726,10 +1726,10 @@ MOVE_HEAD_LEFT:
 	;PUSH	R1	;POSITION en Y of the head
 	PUSH	R16
 	PUSH	R17
-	PUSH	ZL	;Direccion de la RAM
-	PUSH	ZH	;Direccion de la RAM
+	PUSH	ZL	;direction of the RAM
+	PUSH	ZH	;direction of the RAM
 	
-	DEC	R0	;Se mueve la cabeza un pixel hacia the Left
+	DEC	R0	;move the head one pixel to the Left
 	MOV	R16,R0
 	MOV	R17,R1	
 	CALL	SET_PIXEL_IN_RAM_DISPLAY
@@ -1743,9 +1743,9 @@ MOVE_HEAD_LEFT:
 RET	
 
 ;************************************************************
-;Esta funcion mueve la cabeza del snake una POSITION hacia Down.
-;Luego de mover los valores de la RAM, modifica las nuevas POSITIONes
-;of the head en los registros correspondientes.
+;this routine move the head of the snake one POSITION to Down.
+;after move the values of the RAM, modify the new positions
+;of the head in the correct registers.
 ;************************************************************/
 
 MOVE_HEAD_DOWN:
@@ -1753,10 +1753,10 @@ MOVE_HEAD_DOWN:
 	;PUSH	R1	;POSITION en Y of the head
 	PUSH	R16
 	PUSH	R17
-	PUSH	ZL	;Direccion de la RAM
-	PUSH	ZH	;Direccion de la RAM
+	PUSH	ZL	;direction of the RAM
+	PUSH	ZH	;direction of the RAM
 	
-	INC	R1	;Se mueve la cabeza un pixel hacia the Left
+	INC	R1	;move the head one pixel to the Left
 	MOV	R16,R0
 	MOV	R17,R1	
 	CALL	SET_PIXEL_IN_RAM_DISPLAY
@@ -1770,9 +1770,9 @@ MOVE_HEAD_DOWN:
 RET
 
 ;************************************************************
-;Esta funcion mueve la cabeza del snake una POSITION hacia la Rigth.
-;Luego de mover los valores de la RAM, modifica las nuevas POSITIONes
-;of the head en los registros correspondientes.
+;this routine move the head of the snake one POSITION to la Rigth.
+;after move the values of the RAM, modify the new positions
+;of the head in the correct registers.
 ;************************************************************/
 
 MOVE_HEAD_RIGHT:
@@ -1780,10 +1780,10 @@ MOVE_HEAD_RIGHT:
 	;PUSH	R1	;POSITION en Y of the head
 	PUSH	R16
 	PUSH	R17
-	PUSH	ZL	;Direccion de la RAM
-	PUSH	ZH	;Direccion de la RAM
+	PUSH	ZL	;direction of the RAM
+	PUSH	ZH	;direction of the RAM
 	
-	INC	R0	;Se mueve la cabeza un pixel hacia the Left
+	INC	R0	;move the head one pixel to the Left
 	MOV	R16,R0
 	MOV	R17,R1	
 	CALL	SET_PIXEL_IN_RAM_DISPLAY
@@ -1797,72 +1797,72 @@ MOVE_HEAD_RIGHT:
 RET
 
 ;************************************************************
-;Esta funcion mueve la cola del snake una POSITION y modifica
-;los registros necesarios.
+;rhis routine move the tail of snake one POSITION and modify
+;the necesary registers.
 ;************************************************************/
 
 MOVE_TAIL_ONE_POSITION:
-	;PUSH	R2	;POSITION en X of the tail (No se guarda en el stack para poder modificarlo)
-	;PUSH	R3	;POSITION en Y of the tail (No se guarda en el stack para poder modificarlo)
-	PUSH	R16	;Registro auxiliar para valores de X
-	PUSH	R17	;Registro auxiliar para valores de Y
+	;PUSH	R2	;POSITION en X of the tail (don't save in the stack so it can be modify)
+	;PUSH	R3	;POSITION en Y of the tail (don't save in the stack so it can be modify)
+	PUSH	R16	;aux registers for values of X
+	PUSH	R17	;aux registers for values of Y
 	PUSH	R18
 	PUSH	R21
-	PUSH	ZL	;Direccion de la RAM
-	PUSH	ZH	;Direccion de la RAM
+	PUSH	ZL	;direction of the RAM
+	PUSH	ZH	;direction of the RAM
 	
 	MOV	R16,R2
 	MOV	R17,R3
-	CALL	CLEAR_PIXEL_IN_RAM_DISPLAY	;Se apaga el pixel of the tail
+	CALL	CLEAR_PIXEL_IN_RAM_DISPLAY	;turn off the pixel of the tail
 	
-	;Una vez que se apaga la cola, se debe ver en que direccion se tiene que mover para
-	;no perder el resto del cuerpo de la vibora. Para esto hay que ver cual de los 4
-	;pixeles que la rodean estan prendidos.
+	;when the tail turn off, it must verify the direction to move
+	;to not lose the body of the snake. To do this, need to check what of the 4
+	;pixels that round the snake are turned on.
 	
 	LDI	R18,0
 	
 	MOV	R16,R2
 	MOV	R17,R3
 	DEC	R17
-	CALL	CHECK_IF_PIXEL_SET_IN_RAM_DISPLAY	;Verifico si esta prendido el pixel de Up
-	CP	R21,R18		;Si son iguales es porque el pixel esta apagado
+	CALL	CHECK_IF_PIXEL_SET_IN_RAM_DISPLAY	;verify if the pixel is turned on of Up
+	CP	R21,R18		;if are equal then the pixel is power off
 	BRNE	MOVE_TAIL_UP
 	
 	MOV	R16,R2
 	MOV	R17,R3
 	DEC	R16
-	CALL	CHECK_IF_PIXEL_SET_IN_RAM_DISPLAY	;Verifico si esta prendido el pixel de the Left
-	CP	R21,R18		;Si son iguales es porque el pixel esta apagado
+	CALL	CHECK_IF_PIXEL_SET_IN_RAM_DISPLAY	;verify if the pixel is turned on of the Left
+	CP	R21,R18		;if are equal then the pixel is power off
 	BRNE	MOVE_TAIL_LEFT
 	
 	MOV	R16,R2
 	MOV	R17,R3
 	INC	R17
-	CALL	CHECK_IF_PIXEL_SET_IN_RAM_DISPLAY	;Verifico si esta prendido el pixel de Down
-	CP	R21,R18		;Si son iguales es porque el pixel esta apagado
+	CALL	CHECK_IF_PIXEL_SET_IN_RAM_DISPLAY	;verify if the pixel is turned on of Down
+	CP	R21,R18		;if are equal then the pixel is power off
 	BRNE	MOVE_TAIL_DOWN
 	
 	MOV	R16,R2
 	MOV	R17,R3
 	INC	R16
-	CALL	CHECK_IF_PIXEL_SET_IN_RAM_DISPLAY	;Verifico si esta prendido el pixel de la Rigth
-	CP	R21,R18		;Si son iguales es porque el pixel esta apagado
+	CALL	CHECK_IF_PIXEL_SET_IN_RAM_DISPLAY	;verify if the pixel is turned on of la Rigth
+	CP	R21,R18		;if are equal then the pixel is power off
 	BRNE	MOVE_TAIL_RIGHT
 	
 MOVE_TAIL_UP:
-	DEC	R3	;Tengo que mover la POSITION of the tail un pixel hacia Up
+	DEC	R3	;need to move the POSITION of the tail one pixel to Up
 	RJMP	END_MOVING_TAIL
 	
 MOVE_TAIL_LEFT:
-	DEC	R2	;Tengo que mover la POSITION of the tail un pixel hacia the Left
+	DEC	R2	;need to move the POSITION of the tail one pixel to the Left
 	RJMP	END_MOVING_TAIL
 	
 MOVE_TAIL_DOWN:
-	INC	R3	;Tengo que mover la POSITION of the tail un pixel hacia Down
+	INC	R3	;need to move the POSITION of the tail one pixel to Down
 	RJMP	END_MOVING_TAIL
 	
 MOVE_TAIL_RIGHT:
-	INC	R2	;Tengo que mover la POSITION of the tail un pixel hacia la Rigth
+	INC	R2	;need to move the POSITION of the tail one pixel to the Rigth
 	;RJMP	END_MOVING_TAIL
 	
 END_MOVING_TAIL:
@@ -1878,19 +1878,19 @@ END_MOVING_TAIL:
 RET
 
 ;*************************************************************
-;Funcion que prende la fruta en el display.
+;Routine to turn on the fruit in the display.
 ;************************************************************/
 
 SET_FRUIT:
 	PUSH	R0
 	PUSH	R1
-	PUSH	R5		;Registro donde se van a guardar los numeros random
+	PUSH	R5		;register to save the random numbers
 	PUSH	R16
 	PUSH	R17
 	PUSH	R18
 	PUSH	R21
-	PUSH	ZL		;Direccion de la RAM
-	PUSH	ZH		;Direccion de la RAM
+	PUSH	ZL		;direction of the RAM
+	PUSH	ZH		;direction of the RAM
 	
 	LDI	R18,0
 	
@@ -1930,7 +1930,7 @@ END_SET_FRUIT:
 RET
 
 ;*************************************************************
-;Delay con el que se mueve el snake en la RAM.
+;Delay where the snake move in the RAM.
 ;************************************************************/
 
 DELAY_SNAKE:
@@ -1960,33 +1960,33 @@ RET
 
 ;*****************************************************************************************************************/
 ;*****************************************************************************************************************/
-;EMPIEZO LAS SUBRUTINAS
+;START of the SUBROUTINES
 ;*****************************************************************************************************************/
 ;*****************************************************************************************************************/
 
 
 ;****************** LCD_INIT *************************************************************************************/
-;Esta funci\F3n inicializa los 6 pines a utilizar del PORT_LCD para el control de
-;la pantalla, envia una se\F1al de reset, y deja todas las salidas en estado alto
-;(a excepcion de Backlight para reducir el consumo de corriente).
+;This routine init the 6 pins of the PORT_LCD for the control of the screen,
+;sends a reset sign and set all other outputs in high level
+;(except for the Backlight to reduce the current consumption).
 ;*****************************************************************************************************************/
 
 LCD_INIT:
-	PUSH	R16		;Se guarda el contenido de R16 en el stack
-	IN	R16,DDR_LCD	;Se lee el estado del DDR_LCD	
-	SBR	R16,LCD_PINS	;Se encienden los bits 0-5
-	OUT	DDR_LCD,R16	;Se configuran como salida los pines 0-5 del PORT_LCD
+	PUSH	R16		;save the content of R16 in the stack
+	IN	R16,DDR_LCD	;read the state of DDR_LCD	
+	SBR	R16,LCD_PINS	;turn on bits 0-5
+	OUT	DDR_LCD,R16	;set as output pins 0-5 of PORT_LCD
 	
-	CBI	PORT_LCD,RES_PIN_NUMBER	;Se resetea el display
-	CALL	DELAY_5ms			;demora de 5ms aprox
-	CALL	DELAY_5ms			;demora de 5ms aprox
-	CALL	DELAY_5ms			;demora de 5ms aprox
-	SBI	PORT_LCD,BL_PIN_NUMBER	;Se prende BL
-	SBI	PORT_LCD,DC_PIN_NUMBER	;Se ponen en alto las dem\E1s lineas
+	CBI	PORT_LCD,RES_PIN_NUMBER	;reset the display
+	CALL	DELAY_5ms			;delay of 5ms aprox
+	CALL	DELAY_5ms			;delay of 5ms aprox
+	CALL	DELAY_5ms			;delay of 5ms aprox
+	SBI	PORT_LCD,BL_PIN_NUMBER	;turn on BL
+	SBI	PORT_LCD,DC_PIN_NUMBER	;Set to high the other lines
 	SBI	PORT_LCD,SCE_PIN_NUMBER
 	SBI	PORT_LCD,SDIN_PIN_NUMBER
 	SBI	PORT_LCD,SCK_PIN_NUMBER
-	SBI	PORT_LCD,RES_PIN_NUMBER	;Se pone en alto el reset
+	SBI	PORT_LCD,RES_PIN_NUMBER	;set to one the reset
 
 	LDI	R16,PCD8544_FUNCTIONSET | PCD8544_EXTENDEDINSTRUCTION
 	CALL	LCD_WRITE_COMMAND
@@ -2010,86 +2010,85 @@ LCD_INIT:
 	CALL	LCD_WRITE_COMMAND
 	
 	LDI	R16,PCD8544_DISPLAYCONTROL | PCD8544_DISPLAYNORMAL
-	CALL	LCD_WRITE_COMMAND			;Se envian comandos de inicializacion 
+	CALL	LCD_WRITE_COMMAND			;send init commands 
 		
 	POP	R16	
 RET
 
 ;*****************************************************************************************************************/
-;Esta funcion envia un byte de datos por el pin SDIN. Utiliza el registro R17 como
-;contador, y el dato a enviar lo lee de R16 (ambos registros son guardados
-;en el stack).
+;This routine sends one byte of data through the SDIN pin. It uses the Register R17 like a counter
+;and the data to send read from R16 (both registers are saved in the stack).
 ;*****************************************************************************************************************/
 
 LCD_WRITE_DATA:
 	PUSH	R16	
-	PUSH	R17	;Se guarda el contenido de R16 y R17 en el stack
+	PUSH	R17	;save the content of R16 y R17 in the stack
 	
-	LDI	R17,8	;Se inicializa el contador
+	LDI	R17,8	;Init the counter
 	
-	CBI	PORT_LCD,SCE_PIN_NUMBER	;Se baja la linea SCE
-	SBI	PORT_LCD,DC_PIN_NUMBER	;Se mantiene en alto la linea DC para enviar un dato
+	CBI	PORT_LCD,SCE_PIN_NUMBER	;Set to down the line SCE
+	SBI	PORT_LCD,DC_PIN_NUMBER	;Maint in high the line DC to send data
 
 SEND_NEXT_BIT_DATA:
-	CBI	PORT_LCD,SCK_PIN_NUMBER	;Se baja la linea de clock
+	CBI	PORT_LCD,SCK_PIN_NUMBER	;Set to down the line of clock
 	
-	SBRC	R16,7			;Si hay un 0 en el bit mas significativo no se ejecuta la siguiente instruccion
-	SBI	PORT_LCD,SDIN_PIN_NUMBER	;Si hay un 1 en el bit mas significativo, se pone en alto SDIN
-	SBRS	R16,7			;Si hay un 1 en el bit mas significativo no se ejecuta la siguiente instruccion
-	CBI	PORT_LCD,SDIN_PIN_NUMBER	;Si hay un 0 en el bit mas significativo, se pone en bajo SDIN
+	SBRC	R16,7			;if there's a 0 in the MSB the next instruction don't execute
+	SBI	PORT_LCD,SDIN_PIN_NUMBER	;if there's a 1 in the MSB, set to high SDIN
+	SBRS	R16,7			;if there's a 1 in the MSB the next instruction don't execute
+	CBI	PORT_LCD,SDIN_PIN_NUMBER	;if there's a 0 in the MSB, set to down SDIN
 	
-	LSL	R16			;Se corre R16 una POSITION a the Left
-	SBI	PORT_LCD,SCK_PIN_NUMBER	;Se sube la linea SCK para permitir la lectura
+	LSL	R16			;move R16 one POSITION to the Left
+	SBI	PORT_LCD,SCK_PIN_NUMBER	;Set to up the line SCK to allow read
 	
-	CALL	DELAY_TRANSMITION	;Se llama al delay
-	DEC	R17			;Se decrementa R17
-	BRNE	SEND_NEXT_BIT_DATA	;Si el contador no llego a cero se envia el siguiente bit
+	CALL	DELAY_TRANSMITION	;call for delay
+	DEC	R17			;decrement R17
+	BRNE	SEND_NEXT_BIT_DATA	;if counter not reach zero, send the next bit
 	
 	SBI	PORT_LCD,SDIN_PIN_NUMBER
 	SBI	PORT_LCD,SCE_PIN_NUMBER	
-	SBI	PORT_LCD,SCK_PIN_NUMBER	;Luego de enviar el byte completo se ponen en alto todas las lineas
+	SBI	PORT_LCD,SCK_PIN_NUMBER	;afther send the complete byte, set to high all the lines
 	
 	POP	R17
-	POP	R16			;Se sacan del stack R16 y R17
+	POP	R16			;get from the stack R16 y R17
 RET
 		
 ;*****************************************************************************************************************/
-;Esta funcion envia un byte de comandos por el pin SDIN. Utiliza el registro R17 como
-;contador, y el dato a enviar lo lee de R16 (ambos registros son guardados
-;en el stack).
+;This routine sends a byte through the SDIN pin. It use the R17 register like
+;a counter, and R16 read the data to send (both registers are saved 
+;in the stack).
 ;*****************************************************************************************************************/
 
 LCD_WRITE_COMMAND:
 	PUSH	R16	
-	PUSH	R17	;Se guarda el contenido de R16 y R17 en el stack
+	PUSH	R17	;save the content of R16 y R17 in the stack
 	
-	LDI	R17,8	;Se inicializa el contador
+	LDI	R17,8	;Init the counter
 	
-	CBI	PORT_LCD,SCE_PIN_NUMBER	;Se baja la linea SCE
-	CBI	PORT_LCD,DC_PIN_NUMBER	;Se mantiene en bajo la linea DC para enviar un comando
+	CBI	PORT_LCD,SCE_PIN_NUMBER	;Set to down the line SCE
+	CBI	PORT_LCD,DC_PIN_NUMBER	;Set to Down the DC line to send a command
 
 SEND_NEXT_BIT_COMMAND:
-	CBI	PORT_LCD,SCK_PIN_NUMBER	;Se baja la linea de clock
+	CBI	PORT_LCD,SCK_PIN_NUMBER	;Set to down the line of clock
 	
-	SBRC	R16,7			;Si hay un 0 en el bit mas significativo no se ejecuta la siguiente instruccion
-	SBI	PORT_LCD,SDIN_PIN_NUMBER	;Si hay un 1 en el bit mas significativo, se pone en alto SDIN
-	SBRS	R16,7			;Si hay un 1 en el bit mas significativo no se ejecuta la siguiente instruccion
-	CBI	PORT_LCD,SDIN_PIN_NUMBER	;Si hay un 0 en el bit mas significativo, se pone en bajo SDIN
+	SBRC	R16,7			;if there's a 0 in the MSB the next instruction don't execute
+	SBI	PORT_LCD,SDIN_PIN_NUMBER	;if there's a 1 in the MSB, set to high SDIN
+	SBRS	R16,7			;if there's a 1 in the MSB the next instruction don't execute
+	CBI	PORT_LCD,SDIN_PIN_NUMBER	;if there's a 0 in the MSB, set to down SDIN
 	
-	LSL	R16			;Se corre R16 una POSITION a the Left
-	SBI	PORT_LCD,SCK_PIN_NUMBER	;Se sube la linea SCK para permitir la lectura
+	LSL	R16			;move R16 one POSITION a the Left
+	SBI	PORT_LCD,SCK_PIN_NUMBER	;Set to up the line SCK to allow read
 	
-	CALL	DELAY_TRANSMITION	;Se llama al delay
-	DEC	R17			;Se decrementa R17
-	BRNE	SEND_NEXT_BIT_COMMAND	;Si el contador no llego a cero se envia el siguiente bit
+	CALL	DELAY_TRANSMITION	;call for delay
+	DEC	R17			;decrement R17
+	BRNE	SEND_NEXT_BIT_COMMAND	;if counter not reach zero, send the next bit
 	
 	SBI	PORT_LCD,SDIN_PIN_NUMBER
 	SBI	PORT_LCD,DC_PIN_NUMBER
 	SBI	PORT_LCD,SCE_PIN_NUMBER	
-	SBI	PORT_LCD,SCK_PIN_NUMBER	;Luego de enviar el byte completo se ponen en alto todas las lineas
+	SBI	PORT_LCD,SCK_PIN_NUMBER	;afther send the complete byte, set to high all the lines
 	
 	POP	R17
-	POP	R16			;Se sacan del stack R16 y R17
+	POP	R16			;get from the stack R16 y R17
 RET
 
 ;**********************************************************/
@@ -2101,19 +2100,19 @@ RET
 
 
 ;**********************************************************/
-;delay de 5ms
+;delay of 5ms
 ;**********************************************************/
 
 DELAY_5ms:
 	PUSH	R17
 	PUSH	R18
 	
-	LDI R17, 66 ;para 1mhz a OJO, para 8mhz era 66 ; 1 ciclo
+	LDI R17, 66 ;For 8mhz is 66
 LOOP0:
 	LDI R18, 200 ; 1 ciclo
 LOOP1:
 	DEC		R18 ; 1 ciclo
-	BRNE	LOOP1 ; 1 si es falso 2 si es verdadero
+	BRNE	LOOP1 ; 1 if false and 2 if true
 	DEC		R17 ; 1
 	BRNE	LOOP0 ; 2
 	 
@@ -2123,7 +2122,7 @@ ret
 
 
 ;**********************************************************/
-;delay de 200 msegundo
+;delay of 200 ms
 ;**********************************************************/
 
 DELAY_200ms:
@@ -2133,12 +2132,12 @@ DELAY_200ms:
 	
 	LDI		R19, 40
 LOOP_7:
-	LDI		R17, 66 ;para 1mhz a OJO, para 8mhz era 66 ; 1 ciclo
+	LDI		R17, 66 ;For 8mhz is 66
 LOOP_5:
 	LDI		R18, 200 ; 1 ciclo
 LOOP_6:
 	DEC		R18 ; 1 ciclo
-	BRNE	LOOP_6 ; 1 si es falso 2 si es verdadero
+	BRNE	LOOP_6 ; 1 if false and 2 if true
 	DEC		R17 ; 1
 	BRNE	LOOP_5 ; 2
 	DEC		R19
@@ -2151,7 +2150,7 @@ ret
 
 
 ;**********************************************************/
-;delay de 25 msegundo
+;delay of 25 ms
 ;**********************************************************/
 
 DELAY_25ms:
@@ -2161,12 +2160,12 @@ DELAY_25ms:
 	
 	LDI		R19, 5
 LOOP_77:
-	LDI		R17, 66 ;para 1mhz a OJO, para 8mhz era 66 ; 1 ciclo
+	LDI		R17, 66 ;For 8mhz is 66
 LOOP_55:
 	LDI		R18, 200 ; 1 ciclo
 LOOP_66:
 	DEC		R18 ; 1 ciclo
-	BRNE	LOOP_66 ; 1 si es falso 2 si es verdadero
+	BRNE	LOOP_66 ; 1 if false and 2 if true
 	DEC		R17 ; 1
 	BRNE	LOOP_55 ; 2
 	DEC		R19
@@ -2178,7 +2177,7 @@ LOOP_66:
 ret
 
 ;**********************************************************/
-;delay de 1 segundo
+;delay of 1 s
 ;**********************************************************/
 
 DELAY_1s:
@@ -2188,12 +2187,12 @@ DELAY_1s:
 	
 	LDI		R19,200
 LOOP_2:
-	LDI R17, 66 ;para 1mhz a OJO, para 8mhz era 66 ; 1 ciclo
+	LDI R17, 66 ;For 8mhz is 66
 LOOP_0:
 	LDI R18, 200 ; 1 ciclo
 LOOP_1:
 	DEC		R18 ; 1 ciclo
-	BRNE	LOOP_1 ; 1 si es falso 2 si es verdadero
+	BRNE	LOOP_1 ; 1 if false and 2 if true
 	DEC		R17 ; 1
 	BRNE	LOOP_0 ; 2
 	DEC		R19
@@ -2205,7 +2204,7 @@ LOOP_1:
 ret
 
 ;********************************************************/
-;RUTINA PARA BORRAR LA RAM DEL LCD
+;Routine for erase the RAM from the LCD
 ;********************************************************/
 
 
@@ -2215,13 +2214,13 @@ CLEAR_SCREEN:
 	PUSH	R18
 
 	LDI		R16,PCD8544_SETYADDR
-	CALL	LCD_WRITE_COMMAND	;Se inicializa Y en cero
+	CALL	LCD_WRITE_COMMAND	;Init Y in zero
 	LDI		R16,PCD8544_SETXADDR
-	CALL	LCD_WRITE_COMMAND	;Se inicializa X en cero
+	CALL	LCD_WRITE_COMMAND	;Init X in zero
 
-	LDI		R18, 6		;6 filas
+	LDI		R18, 6		;6 rows
 LOOP_12:
-	LDI		R17, 84		;84 columnas
+	LDI		R17, 84		;84 columns
 LOOP_11:
 	LDI		R16, 0
 	CALL	LCD_WRITE_DATA
@@ -2238,7 +2237,7 @@ LOOP_11:
 
 
 ;********************************************/
-;RUTINA PARA BORRAR LA RAM DEL MICRO
+;Rpoutine to erease the RAM from the uController
 ;********************************************/
 
 CLEAR_RAM:
@@ -2251,12 +2250,12 @@ CLEAR_RAM:
 	LDI		XL, LOW(RAM_DISPLAY)
 	LDI		XH, HIGH(RAM_DISPLAY)
 
-	LDI		R18, 6		;6 filas
+	LDI		R18, 6		;6 rows
 LOOP_122:
-	LDI		R17, 84		;84 columnas
+	LDI		R17, 84		;84 columns
 LOOP_111:
 	LDI		R16, 0
-	ST		X+, R16		;cargo ceros en la ram
+	ST		X+, R16		;load zeros in RAM
 	DEC		R17
 	BRNE	LOOP_111
 	DEC		R18
@@ -2271,36 +2270,36 @@ LOOP_111:
 	RET
 
 ;*****************************************************************************************************************/
-;Esta funcion es para imprimir en pantalla strings de caracteres 
-;El string nunca va a ser mayor a 14 chars, ya que es lo maximo
-;que se puede mostrar en pantalla en horizontal.
+;This routine prints strings of chars on the screen.
+;The max number of chars in the string is 14
+;that's the max char supported in the screen.
 ;*****************************************************************************************************************/
 
 ;*****************************************************************************************************************/
-;Esta funcion es para imprimir en pantalla strings de caracteres.
-;En R19 debe estar guardado el largo de la cadena, en R16 y R16 las
-;POSITIONes en X e Y respectivamente donde se desea imprimir, y en Z
-;debe estar guardada la direccion del primer byte de la cadena.
+;This routine prints strings of chars on the screen.
+;The length of the strings needs to be in R19, in R16 and R17 the
+;POSITIONs of X and Y respectively where it will going to print and
+;in Z need to be the direction of the first byte of the string.
 ;*****************************************************************************************************************/
 
 LCD_PRINT_STRING:
 	PUSH	R16	;value ofX
 	PUSH	R17	;value ofY
 	PUSH	R18
-	PUSH	R19	;Largo del string
-	PUSH	ZL	;Parte baja de la direccion del string
-	PUSH	ZH	;Parte alta de la direccion del string
+	PUSH	R19	;length of the string
+	PUSH	ZL	;direction of the low part of the string
+	PUSH	ZH	;direction of the high part of the string
 	
 	LDI	R18,PCD8544_SETXADDR
-	ADD	R16,R18		;Se suma el value ofX deseado con el comando 
+	ADD	R16,R18		;add the value ofX desired with the command 
 	LDI	R18,PCD8544_SETYADDR
-	ADD	R17,R18		;Se suma el value ofY deseado con el comando
+	ADD	R17,R18		;add the value ofY desired with the command
 
 
 	
-	CALL	LCD_WRITE_COMMAND	;Se inicializa X en el valor deseado
+	CALL	LCD_WRITE_COMMAND	;Init in X in the desired value
 	MOV	R16,R17
-	CALL	LCD_WRITE_COMMAND	;Se inicializa Y en el valor deseado
+	CALL	LCD_WRITE_COMMAND	;Init in Y in the desired value
 
 	CALL DELAY_TRANSMITION
 
@@ -2325,35 +2324,35 @@ RET
 ;***************************************************/
 
 LCD_PRINT_CHAR:
-	PUSH	R16 	;POSITION en X
-	PUSH	R17		;POSITION en Y
-	PUSH	R18		;Caracter
+	PUSH	R16 	;POSITION in X
+	PUSH	R17		;POSITION in Y
+	PUSH	R18		;Character
 	PUSH	R30
 	PUSH	R31
 
 	;LDI	R30,PCD8544_SETXADDR
-	;ADD	R16,R30			;Se suma el value ofX deseado con el comando 
+	;ADD	R16,R30			;add the value ofX desired with the command 
 	;LDI	R30,PCD8544_SETYADDR
-	;ADD	R17,R30			;Se suma el value ofY deseado con el comando
+	;ADD	R17,R30			;add the value ofY desired with the command
 	
-	;CALL	LCD_WRITE_COMMAND	;Se inicializa X en el valor deseado
+	;CALL	LCD_WRITE_COMMAND	;Init in X in the desired value
 	;MOV		R16,R17
-	;CALL	LCD_WRITE_COMMAND	;Se inicializa Y en el valor deseado
+	;CALL	LCD_WRITE_COMMAND	;Init in Y in the desired value
 	
-	SUBI	R18,32			;Se resta el offset al caracter para conocer el valor en la tabla
-	LDI		R30,12			;Se debe multiplicar por 6 para obtener el value ofla tabla, ya que cada caracter son 6 bytes
-	MUL		R18, R30		;El resultado se guarda en R1-R0 (el menos significativo en R0)
+	SUBI	R18,32			;Subtract the offset to the character to know the value in the table
+	LDI		R30,12			;Multiply by 6 to obtain the value of the table because the every character has 6 bytes
+	MUL		R18, R30		;The result will be saved in R1-R0 (Less significant in R0)
 	
 	LDI	ZL,LOW(CHARS_TABLE<<1)
-	LDI	ZH,HIGH(CHARS_TABLE<<1)	;Se carga Z con la direccion de la tabla (hay que multiplicar por 2 para acceder)
+	LDI	ZH,HIGH(CHARS_TABLE<<1)	;Load Z with the direction of the table (mult by 2 to access it)
 	
 	ADD		ZL,R0
-	ADC 	ZH,R1			;Se suma el offset para el caracter deseado
+	ADC 	ZH,R1			;add the offset for the desired character
 	
-	LDI		R18,6			;Utilizo R18 como contador
+	LDI		R18,6			;use R18 as a counter
 SEND_NEXT_CHAR_BYTE:
-	LPM		R16,Z+			;Leo el value ofla tabla y lo guardo en R18
-	CALL	LCD_WRITE_DATA		;Envio el dato al display
+	LPM		R16,Z+			;read the value of the table and save it in R18
+	CALL	LCD_WRITE_DATA	;send the data to the display
 	DEC		R18
 	BRNE	SEND_NEXT_CHAR_BYTE	
 		
@@ -2366,8 +2365,8 @@ RET
 
 
 ;*****************************************************
-;Funcion que actualiza la pantalla. Lee los datos de la
-;memoria RAM apuntada por Z y lo envia al display
+;Routine that refresh the screen. Read the data from
+;the RAM memory pointed by Z and send it to the display
 *******************************************************/
 
 REFRESH_DISPLAY:
@@ -2380,14 +2379,14 @@ REFRESH_DISPLAY:
 	LDI		R16,PCD8544_SETYADDR
 	CALL	LCD_WRITE_COMMAND
 	LDI		R16,PCD8544_SETXADDR
-	CALL	LCD_WRITE_COMMAND	;Se inicializa X e Y en cero
+	CALL	LCD_WRITE_COMMAND	;Init X and Y in zero
 	
-	LDI		R18,6		;Cantidad de filas
+	LDI		R18,6		;quantity of rows
 SEND_NEXT_ROW_RAM:
-	LDI		R17,84		;Cantidad de columnas
+	LDI		R17,84		;quantity of columns
 SEND_NEXT_COL_RAM:	
 	LD		R16,Z+
-	CALL	LCD_WRITE_DATA	;Se envia el dato leido
+	CALL	LCD_WRITE_DATA	;send the data readed
 	
 	DEC		R17
 	BRNE	SEND_NEXT_COL_RAM
@@ -2405,60 +2404,60 @@ RET
 
 
 ;***********************************************/
-;generador de numeros RANDOM
-; LO GUARDO EN R5 ASI NO JODE
+;RANDOM numbers generator
+;Save the value in R5
 ;***********************************************/
 RANDOM:
 		PUSH	R16
 		PUSH	R17
 		PUSH	R18
 
-		LDI		R16, 0x70		;usa AVCC, entrada ADC0
-		STS		ADMUX, R16		;para escribir en el registro ADMUX
-		LDI		R16, 0xC1		;habilito el ADC y empiezo la conversion, con prescaler de x
+		LDI		R16, 0x70		;use AVCC, ADC0 input
+		STS		ADMUX, R16		;for write in the ADMUX register
+		LDI		R16, 0xC1		;Enable ADC and start the conversion with x prescaler
 		STS		ADCSRA, R16
 NO_TERMINO:
-		LDS		R16, ADCSRA		;leo para ver si termino de convertir
+		LDS		R16, ADCSRA		;check if the conversion was finished
 		CPI		R16, 0xC1
 		BREQ	NO_TERMINO
-		LDS		R16, ADCH		;leo los ultimos 2 bits
+		LDS		R16, ADCH		;Read the last 2 bits (most randoms bits)
 
-		LDI		R17, 0x0E		;MAPEO PARA QUERDAR CON UNA PARTE (0X1C)ANTES
-		AND		R16, R17		;LO MAPEO ACA
+		LDI		R17, 0x0E		;Map to get with one part of the byte
+		AND		R16, R17		
 
 		ROR		R16
 		;ROR		R16
-		;MOV		R5, R16		;lo guardo en R15 asi me queda, cuando termina la subrutina
+		;MOV		R5, R16		;save it in R15
 
 
 		;LDI		R17, 0x07
-		MOV		R18, R16			;para usar cpi
+		MOV		R18, R16		;for use the cpi
 		;AND		R18, R17
 		CPI		R18, 0x02
-		BRLT	ES_UN_1			;SALTO SI ES MENOR O IGUAL
+		BRLT	ES_UN_1			;branch if less or equal
 		CPI		R18, 0x04
-		BRLT	ES_UN_2			;SALTO SI ES MENOR O IGUAL
+		BRLT	ES_UN_2			;branch if less or equal
 		CPI		R18, 0x06
-		BRLT	ES_UN_3			;SALTO SI ES MENOR O IGUAL
-		LDI		R18, 4				;CHAR 4
+		BRLT	ES_UN_3			;branch if less or equal
+		LDI		R18, 4			;CHAR 4
 
 		JMP		FIN_RANDOM
 
 ES_UN_1:
-		LDI		R18, 1				;CHAR 1
+		LDI		R18, 1			;CHAR 1
 		JMP		FIN_RANDOM
 
 ES_UN_2:
-		LDI		R18, 2				;CHAR 2
+		LDI		R18, 2			;CHAR 2
 		JMP		FIN_RANDOM
 
 ES_UN_3:
-		LDI		R18, 3				;CHAR 3
+		LDI		R18, 3			;CHAR 3
 		JMP		FIN_RANDOM
 
 FIN_RANDOM:
 		
-		MOV		R5, R18				;DEVUELVO EL DATO EN R5
+		MOV		R5, R18			;Return the value in R5
 
 
 		POP		R18
@@ -2469,7 +2468,7 @@ RET
 
 
 ;******************************************************************/
-;subrutina para usar matriz para la ram y q sea mas facil
+;Subroutine to use a matrix for the RAM
 ;******************************************************************/
 
 LOAD_MATRIX_RAM:
@@ -2499,7 +2498,7 @@ LOAD_MATRIX_RAM:
 	LDI		R22, 84
 	LDI		R18, 0		;hago la "division"
 	MOV		R6, R18
-	;INC		R24			;ver si anda, a veces pasa mas de 2 bytes
+	;INC		R24		;ver si anda, a veces pasa mas de 2 bytes
 
 SIGO:
 	INC		R18
@@ -2533,7 +2532,7 @@ PASO_AL_OTRO_ANCHO:
 	MOV		R4, R19		;copio el resto en R4
 	MOV		R5,	R24		;copio el ALTO del dibujo
 PASO_AL_OTRO_Y:
-	LPM		R20, Z		;para avanzar en la tabla la cantidad de bytes que me dice el que mando
+	LPM		R20, Z		;para avanzar en la tabla la quantity of bytes que me dice el que mando
 	LDI		R25, 0
 	MOV		R4, R19		;copio el resto en R4
 ROLEO_OTRA_VEZ:
@@ -2625,12 +2624,12 @@ RAM_PRINT_STRING:
 	PUSH	R16	;value ofX
 	PUSH	R17	;value ofY
 	PUSH	R18	;valores del string
-	PUSH	R19	;Largo del string
+	PUSH	R19	;length of the string
 	PUSH	R20 ;CARGO 0 PAR ASUMAR CARRY
 	PUSH	R23	;recibo ancho de dibujo
 	PUSH	R24	;recibo alto del dibujo
-	PUSH	ZL	;Parte baja de la direccion del string
-	PUSH	ZH	;Parte alta de la direccion del string
+	PUSH	ZL	;direction of the low part of the string
+	PUSH	ZH	;direction of the high part of the string
 
 	LDI		R20, 0
 
@@ -2665,7 +2664,7 @@ RET
 RAM_PRINT_CHAR:
 	PUSH	R16 	;POSITION en X
 	PUSH	R17		;POSITION en Y
-	PUSH	R18		;Caracter del string
+	PUSH	R18		;Character del string
 	PUSH	R23		;recibo ancho de dibujo
 	PUSH	R24		;recibo alto de dibujo
 	PUSH	YL
@@ -2682,12 +2681,12 @@ RAM_PRINT_CHAR:
 	MUL		R18, R30		;El resultado se guarda en R1-R0 (el menos significativo en R0)
 	
 	LDI		ZL,LOW(CHARS_TABLE<<1)
-	LDI		ZH,HIGH(CHARS_TABLE<<1)	;Se carga Z con la direccion de la tabla (hay que multiplicar por 2 para acceder)
+	LDI		ZH,HIGH(CHARS_TABLE<<1)	;Load Z with the direction of the table (mult by 2 to access it)
 	
 	ADD		ZL,R0
-	ADC 	ZH,R1			;Se suma el offset para el caracter deseado
+	ADC 	ZH,R1			;add the offset for the desired character
 
-	;LPM		R16,Z+			;Leo el value ofla tabla y lo guardo en R18
+	;LPM		R16,Z+			;read the value of the table and save it in R18
 
 	MOV		YL, ZL
 	MOV		YH, ZH			;copio la direccion donde apunta Z
@@ -2951,7 +2950,7 @@ LOAD_SIMON:
 
 
 ;*******************************************************************************************/
-;cantidad de datos que dijo simon
+;quantity of datos que dijo simon
 ;convertir el dato a BCD para mostrarlo bien en pantalla
 ;el valor debe ir en R25
 ;*******************************************************************************************/
@@ -3240,7 +3239,7 @@ CORAZONES:
 
 		PUSH	R16			;POSITION X
 		PUSH	R17			;POSITION Y
-		PUSH	R22			;cantidad de corazones disponibles
+		PUSH	R22			;quantity of corazones disponibles
 		PUSH	R23			;width in PIXELES
 		PUSH	R24			;ALTO EN BYTES
 		PUSH	ZL
@@ -3444,7 +3443,7 @@ RET
 
 
 ;*******************************************************************************************/
-;cantidad de datos que introdujo el USUARIO
+;quantity of datos que introdujo el USUARIO
 ;convertir el dato a BCD para mostrarlo bien en pantalla
 ;el valor debe ir en R25
 ;*******************************************************************************************/
