@@ -601,7 +601,7 @@ CARGO_LOGO:
 
 		LDI		R16, 10				;POSITION X
 		LDI		R17, 17				;POSITION Y
-		LDI		R23, 64				;width in PIXELES
+		LDI		R23, 64				;width in pixels
 		LDI		R24, 2				;height in BYTES 2 when is not centred
 		LDI		ZL, LOW(ZORZABOY<<1)
 		LDI		ZH, HIGH(ZORZABOY<<1)
@@ -648,9 +648,9 @@ CARGO_LOGO:
 		CALL	LCD_PRINT_STRING		;print "SIMON" in SCREEN, on (3,0)
 
 ESPERO_ELECCION:
-		SBIC	PINC, 5					;BOTON A
+		SBIC	PINC, 5					;buttonA
 		JMP		SNAKE
-		SBIC	PINB, 0					;BOTON B
+		SBIC	PINB, 0					;buttonB
 		JMP		SIMON_GAME
 		JMP		ESPERO_ELECCION
 
@@ -688,7 +688,7 @@ RENEW:
 		;S
 		LDI		R16, 17				;POSITION X
 		LDI		R17, 5				;POSITION Y
-		LDI		R23, 9				;width in PIXELES
+		LDI		R23, 9				;width in pixels
 		LDI		R24, 2				;height in bytes 2, when is not centred
 		LDI		ZL, LOW(S_INIT<<1)
 		LDI		ZH, HIGH(S_INIT<<1)
@@ -696,7 +696,7 @@ RENEW:
 		;I
 		LDI		R16, 27				;POSITION X
 		LDI		R17, 4				;POSITION Y
-		LDI		R23, 5				;width in PIXELES
+		LDI		R23, 5				;width in pixels
 		LDI		R24, 2				;height in bytes 2, when is not centred
 		LDI		ZL, LOW(I_INIT<<1)
 		LDI		ZH, HIGH(I_INIT<<1)
@@ -704,7 +704,7 @@ RENEW:
 		;M
 		LDI		R16, 34				;POSITION X
 		LDI		R17, 7				;POSITION Y
-		LDI		R23, 13				;width in PIXELES
+		LDI		R23, 13				;width in pixels
 		LDI		R24, 2				;height in bytes 2, when is not centred
 		LDI		ZL, LOW(M_INIT<<1)
 		LDI		ZH, HIGH(M_INIT<<1)
@@ -712,7 +712,7 @@ RENEW:
 		;O
 		LDI		R16, 48				;POSITION X
 		LDI		R17, 7				;POSITION Y
-		LDI		R23, 8				;width in PIXELES
+		LDI		R23, 8				;width in pixels
 		LDI		R24, 2				;height in bytes 2, when is not centred
 		LDI		ZL, LOW(O_INIT<<1)
 		LDI		ZH, HIGH(O_INIT<<1)
@@ -720,7 +720,7 @@ RENEW:
 		;n
 		LDI		R16, 55				;POSITION X
 		LDI		R17, 7				;POSITION Y
-		LDI		R23, 9				;width in PIXELES
+		LDI		R23, 9				;width in pixels
 		LDI		R24, 2				;height in bytes 2, when is not centred
 		LDI		ZL, LOW(N_INIT<<1)
 		LDI		ZH, HIGH(N_INIT<<1)
@@ -728,7 +728,7 @@ RENEW:
 		;D
 		LDI		R16, 26				;POSITION X
 		LDI		R17, 18				;POSITION Y
-		LDI		R23, 9				;width in PIXELES
+		LDI		R23, 9				;width in pixels
 		LDI		R24, 2				;height in bytes 2, when is not centred
 		LDI		ZL, LOW(D_INIT<<1)
 		LDI		ZH, HIGH(D_INIT<<1)
@@ -736,7 +736,7 @@ RENEW:
 		;I
 		LDI		R16, 36				;POSITION X
 		LDI		R17, 18				;POSITION Y
-		LDI		R23, 5				;width in PIXELES
+		LDI		R23, 5				;width in pixels
 		LDI		R24, 2				;height in bytes 2, when is not centred
 		LDI		ZL, LOW(I_INIT<<1)
 		LDI		ZH, HIGH(I_INIT<<1)
@@ -744,7 +744,7 @@ RENEW:
 		;C
 		LDI		R16, 42				;POSITION X
 		LDI		R17, 21				;POSITION Y
-		LDI		R23, 8				;width in PIXELES
+		LDI		R23, 8				;width in pixels
 		LDI		R24, 2				;height in bytes 2, when is not centred
 		LDI		ZL, LOW(C_INIT<<1)
 		LDI		ZH, HIGH(C_INIT<<1)
@@ -752,7 +752,7 @@ RENEW:
 		;E
 		LDI		R16, 51				;POSITION X
 		LDI		R17, 21				;POSITION Y
-		LDI		R23, 7				;width in PIXELES
+		LDI		R23, 7				;width in pixels
 		LDI		R24, 2				;height in bytes 2, when is not centred
 		LDI		ZL, LOW(E_INIT<<1)
 		LDI		ZH, HIGH(E_INIT<<1)
@@ -779,9 +779,9 @@ VUELVO_A_VER_BOTONES:
 		;press A
 		LDI		R16, 20				;POSITION X
 		LDI		R17, 36				;POSITION Y
-		LDI		R23, 6				;width in PIXELES
-		LDI		R24, 2				;ALTO EN BYTES
-		LDI		R19, 7				;ancho del string
+		LDI		R23, 6				;width in pixels
+		LDI		R24, 2				;height in bytes
+		LDI		R19, 7				;length of the string
 		LDI		ZL, LOW(PRESS<<1)
 		LDI		ZH, HIGH(PRESS<<1)
 		CALL	RAM_PRINT_STRING
@@ -850,9 +850,9 @@ CARGO_JUEGO:
 		;SIMON_DICE
 		LDI		R16, 0				;POSITION X
 		LDI		R17, 1				;POSITION Y
-		LDI		R23, 6				;width in PIXELES
-		LDI		R24, 1				;ALTO EN BYTES
-		LDI		R19, 12				;ancho del string
+		LDI		R23, 6				;width in pixels
+		LDI		R24, 1				;height in bytes
+		LDI		R19, 12				;length of the string
 		LDI		ZL, LOW(SIMON<<1)
 		LDI		ZH, HIGH(SIMON<<1)
 		CALL	RAM_PRINT_STRING
@@ -953,8 +953,8 @@ SIGO_GAME_OVER:
 		;GAME OVER
 		LDI		R16, 0				;POSITION X
 		LDI		R17, 22				;POSITION Y
-		LDI		R23, 6				;width in PIXELES
-		LDI		R24, 2				;ALTO EN BYTES
+		LDI		R23, 6				;width in pixels
+		LDI		R24, 2				;height in bytes
 		LDI		R19, 12				;width of string
 		LDI		ZL, LOW(GAME_OVERR<<1)
 		LDI		ZH, HIGH(GAME_OVERR<<1)
@@ -2476,29 +2476,28 @@ LOAD_MATRIX_RAM:
 	PUSH	R1
 	PUSH	R2			;mem aux
 	PUSH	R3			;mem aux2
-	PUSH	R4			;copia del resto
-	PUSH	R5			;copia del ancho
-	PUSH	R6			;MEMORIA PARA SUMAR CARRY
-	PUSH	R16			;recibo X
-	PUSH	R17			;recibo Y
-	PUSH	R18			;value ofla division
-	PUSH	R19			;resto de la division
-	PUSH	R20			;dato a guardar?
+	PUSH	R4			;copy of the rest
+	PUSH	R5			;copy of the width
+	PUSH	R6			;memory to add carry
+	PUSH	R16			;receive X
+	PUSH	R17			;receive Y
+	PUSH	R18			;value of the division
+	PUSH	R19			;resto de the division
+	PUSH	R20			;data to be saved
 	PUSH	R21			;8
 	PUSH	R22			;84
-	PUSH	R23			;recibo ancho de dibujo
-	PUSH	R24			;recibo alto del dibujo
+	PUSH	R23			;receive width
+	PUSH	R24			;receive height
 	PUSH	R25			;0
 	PUSH	XL
 	PUSH	XH
 	PUSH	ZL
-	PUSH	ZH			;recibo registro para pasar el dibujo
+	PUSH	ZH			;receive the register to pass the draw
 
 	LDI		R21, 8
 	LDI		R22, 84
-	LDI		R18, 0		;hago la "division"
+	LDI		R18, 0		;make the division
 	MOV		R6, R18
-	;INC		R24		;ver si anda, a veces pasa mas de 2 bytes
 
 SIGO:
 	INC		R18
@@ -2510,59 +2509,59 @@ SIGO:
 TERMINE_LA_DIV:
 	MOV		R19, R18
 	MUL		R19, R21
-	SUB		R0, R17		;me va a dar negativo
-	LDI		R19, 8		;cargo 8 para restar al resto que me da el numero para rolear
-	SUB		R19, R0		;guardo en r19 el valor para rolear
+	SUB		R0, R17		;this return a negative number
+	LDI		R19, 8		;load 8 for sub the rest of the div, this return the number to roll
+	SUB		R19, R0		;save the number to roll in R19
 
 	LDI		XL, LOW(RAM_DISPLAY)
 	LDI		XH, HIGH(RAM_DISPLAY)
 
-	DEC		R18			;para que multiplique bien
+	DEC		R18			;to fix the mult
 	MUL		R18, R22
 	ADD		XL, R0
-	ADD		XL, R16		;termino de apuntar a la tabla en la RAM
+	ADD		XL, R16		;finish to point the table in RAM
 	ADC		XH, R1
-	MOV		R21, R23	;copio el ancho
+	MOV		R21, R23	;copy the width
 	INC		R18
 
 PASO_AL_OTRO_ANCHO:
-	CLC					;borro el carry para que no me moleste
+	CLC					;clear carry
 	LDI		R25, 0
-	MOV		R2, R25		;memoria para sumar lo que le falta
-	MOV		R4, R19		;copio el resto en R4
-	MOV		R5,	R24		;copio el ALTO del dibujo
+	MOV		R2, R25		;memory to add what is missing
+	MOV		R4, R19		;copy the rest in R4
+	MOV		R5,	R24		;copy the height of the draw
 PASO_AL_OTRO_Y:
-	LPM		R20, Z		;para avanzar en la tabla la quantity of bytes que me dice el que mando
+	LPM		R20, Z		;to move in the table the quantity of bytes sent
 	LDI		R25, 0
-	MOV		R4, R19		;copio el resto en R4
+	MOV		R4, R19		;copy the rest in R4
 ROLEO_OTRA_VEZ:
 	ROL		R20
-	ROL		R25			;parte para sumar a lo de Down
+	ROL		R25			;to add the low part
 	CLC
 	DEC		R4
 	BRNE	ROLEO_OTRA_VEZ
 	ADD		R20, R2
-	ST		X, R20		;una vez q guardo incremento X EN 84
-	ADD		XL, R22		;incremento X en 84
+	ST		X, R20		;after save increment X in 84
+	ADD		XL, R22		;increment X in 84
 	ADC		XH, R6
-	ADD		ZL, R21		;para que vaya Down, le sumo el ancho, en esta imagen esta todo ordenado
+	ADD		ZL, R21		;to move down, add the width of the image/draw
 	ADC		ZH, R6
-	MOV		R2, R25		;memoria para sumar lo que le falta
+	MOV		R2, R25		;memory to add what is missing
 	DEC		R5
 	BRNE	PASO_AL_OTRO_Y
-	DEC		R18			;decremento para hacer bien la cuenta
-	MUL		R22, R24	;para volver a la POSITION original
+	DEC		R18			;decrement to fix the count
+	MUL		R22, R24	;return to the original position
 	SUB		XL, R0
 	SBC		XH, R1
-	INC		XL			;sumo 1 para avanzar un lugar en la RAM
+	INC		XL			;add 1 to move one place in RAM
 	BREQ	SUMO_1_XH
-SIGO_DSP_XH:			;SIGO DESPUES DE INCREMENTAR XH
+SIGO_DSP_XH:			;continue after increment XH
 	INC		R18
 	CLC
-	MUL		R21, R24	;ancho de la imagen por cant de bytes
-	SBC		ZL, R0		;vuelvo al inicio
+	MUL		R21, R24	;width of the picture by quantity of bytes
+	SBC		ZL, R0		;return to start
 	SBC		ZH, R1
-	INC		ZL			;sumo 1 para avanzar en el dibujo
+	INC		ZL			;add 1 to move foward in the draw
 	BREQ	SUMO_1_ZH
 SIGO_DSP_ZH:
 	DEC		R23
@@ -2603,38 +2602,35 @@ FINISH:
 
 	RET
 
-
-
-
-
 ;*****************************************************************************************************************/
-;Esta funcion es para imprimir en pantalla strings de caracteres 
-;El string nunca va a ser mayor a 14 chars, ya que es lo maximo
-;que se puede mostrar en pantalla en horizontal.
+;This routine prints strings of chars on the screen.
+;The max number of chars in the string is 14
+;that's the max char supported in the screen.
 ;*****************************************************************************************************************/
 
 ;*****************************************************************************************************************/
-;Esta funcion es para escribir en RAM strings de caracteres.
-;En R19 debe estar guardado el largo de la cadena, en R16 y R16 las
-;POSITIONes en X e Y respectivamente donde se desea imprimir, y en Z
-;debe estar guardada la direccion del primer byte de la cadena.
+;This routine prints strings of chars on the screen.
+;The length of the strings needs to be in R19, in R16 and R17 the
+;POSITIONs of X and Y respectively where it will going to print and
+;in Z need to be the direction of the first byte of the string.
 ;*****************************************************************************************************************/
+
 
 RAM_PRINT_STRING:
 	PUSH	R16	;value ofX
 	PUSH	R17	;value ofY
-	PUSH	R18	;valores del string
+	PUSH	R18	;value of the string
 	PUSH	R19	;length of the string
-	PUSH	R20 ;CARGO 0 PAR ASUMAR CARRY
-	PUSH	R23	;recibo ancho de dibujo
-	PUSH	R24	;recibo alto del dibujo
+	PUSH	R20 ;load 0 to add carry
+	PUSH	R23	;receive width of the draw
+	PUSH	R24	;receive height of the draw
 	PUSH	ZL	;direction of the low part of the string
 	PUSH	ZH	;direction of the high part of the string
 
 	LDI		R20, 0
 
 NEXT_STRING_CHAR2:
-	LDI		R23, 6	;CARGO PARA SUMAR 6 CARACTERES EN X
+	LDI		R23, 6	;load tu add 6 chars in X
 	LPM		R18,Z+
 
 	CALL	RAM_PRINT_CHAR
@@ -2658,27 +2654,26 @@ RET
 	
 	
 ;***************************************************/
-;RUTINA PARA ESCRIBIR CARACTERES EN LA RAM
+;Routine to write characters in RAM
 ;***************************************************/
 
 RAM_PRINT_CHAR:
 	PUSH	R16 	;POSITION en X
 	PUSH	R17		;POSITION en Y
-	PUSH	R18		;Character del string
-	PUSH	R23		;recibo ancho de dibujo
-	PUSH	R24		;recibo alto de dibujo
+	PUSH	R18		;Character of the string
+	PUSH	R23		;receive width of the draw
+	PUSH	R24		;receive height of the draw
 	PUSH	YL
 	PUSH	YH
 	PUSH	R30
 	PUSH	R31
 
 	LDI		R23, 6
-	;LDI		R24, 1			;ANCHO Y ALTO DE LOS CARACTERES
 	
-	SUBI	R18,32			;Se resta el offset al caracter para conocer el valor en la tabla
-	LDI		R30,12			;Se debe multiplicar por 12 para obtener el value ofla tabla, ya que cada caracter son 12 bytes
+	SUBI	R18,32		;Subs the offset to the character yo know the value in the table
+	LDI		R30,12		;mult by 12 to obtain the value of the table, every character has 12 bytes
 	;CLC
-	MUL		R18, R30		;El resultado se guarda en R1-R0 (el menos significativo en R0)
+	MUL		R18, R30	;the result will be saved in R1-R0 (Less significant in R0)
 	
 	LDI		ZL,LOW(CHARS_TABLE<<1)
 	LDI		ZH,HIGH(CHARS_TABLE<<1)	;Load Z with the direction of the table (mult by 2 to access it)
@@ -2686,15 +2681,15 @@ RAM_PRINT_CHAR:
 	ADD		ZL,R0
 	ADC 	ZH,R1			;add the offset for the desired character
 
-	;LPM		R16,Z+			;read the value of the table and save it in R18
+	;LPM		R16,Z+		;read the value of the table and save it in R18
 
 	MOV		YL, ZL
-	MOV		YH, ZH			;copio la direccion donde apunta Z
+	MOV		YH, ZH			;copy the direction where z points
 
-	CALL	LOAD_MATRIX_RAM		;Envio el dato a la RAM
+	CALL	LOAD_MATRIX_RAM	;send the data to the RAM
 
 	MOV		ZL, YL
-	MOV		ZH, YH				;recupero los valores anteriores
+	MOV		ZH, YH			;retreive the previous values
 	
 		
 	POP		R31
@@ -2710,14 +2705,12 @@ RET
 
 
 ;*************************************************************************/
-;subrutina para los pulsadores
-;Son 6 botones
-;0 - Up, 1 - izq, 2 - der, 3 - Down, 4 - aceptar, 5 - pausa
-; DEVUELVO EL VALOR EN R7
+;subroutine for the push buttons
+;6 buttons
+;0 - Up, 1 - left, 2 - right, 3 - Down, 4 - ok, 5 - pause
+;return the value in R7
 ;*************************************************************************/
 
-;FALTA MODIFICAR TODO SOLO ESTA LA PRUEBA QUE HICE
-;
 PULSADORES:
 
 		PUSH	R18
@@ -2754,10 +2747,10 @@ RET
 */
 
 ;******************************************************************************************/
-;subrutina para los pulsadores
-;Son 6 botones
-;1 - Up, 2 - izq, 3 - der, 4 - Down, 5 - aceptar, 6 - pausa, 7 -ningun boton pulsado
-; DEVUELVO EL VALOR EN R7
+;subroutine for the push buttons
+;6 buttons (7 is no button pushed)
+;1 - Up, 2 - left, 3 - right, 4 - Down, 5 - ok, 6 - pause, 7 -ningun buttonpulsado
+;return the value in R7
 ;******************************************************************************************/
 
 PULSADORES_TODOS:
@@ -2765,47 +2758,47 @@ PULSADORES_TODOS:
 		PUSH	R18
 
 
-		SBIC	PINC, 1					;flecha Up
+		SBIC	PINC, 1					;arrow Up
 		JMP		BOTON_FLECHA_ARRIBA
-		SBIC	PINC, 2					;flecha izquierda
+		SBIC	PINC, 2					;arrow izquierda
 		JMP		BOTON_FLECHA_IZQ
-		SBIC	PINC, 3					;flecha Rigth
+		SBIC	PINC, 3					;arrow Rigth
 		JMP		BOTON_FLECHA_DER
-		SBIC	PINC, 4					;flecha Down
+		SBIC	PINC, 4					;arrow Down
 		JMP		BOTON_FLECHA_ABAJO
-		SBIC	PINC, 5					;boton aceptar o boton A
+		SBIC	PINC, 5					;button ok or button A
 		JMP		BOTON_ACEPTAR
 
-		;boton pausa con interrupcion
+		;button pause with interruption
 
 		LDI		R18, 7
-		MOV		R7, R18					;devuelvo el valor 7 si no hay teclas pulsadas
+		MOV		R7, R18					;return 7 if there is no pushed buttons
 		JMP		FIN_BOTONES
 
 BOTON_FLECHA_ARRIBA:
-		LDI		R18, 1					;cargo el valor que le di a la flecha( 1 = Up )
-		MOV		R7, R18					;devuelvo el valor 7 si no hay teclas pulsadas
+		LDI		R18, 1					;load the value assigned to the row( 1 = Up )
+		MOV		R7, R18					;return 7 if there is no pushed buttons
 		JMP		FIN_BOTONES
 
 BOTON_FLECHA_IZQ:
-		LDI		R18, 2					;cargo el valor que le di a la flecha( 2 = Left)
-		MOV		R7, R18					;devuelvo el valor 7 si no hay teclas pulsadas
+		LDI		R18, 2					;load the value assigned to the row( 2 = Left)
+		MOV		R7, R18					;return 7 if there is no pushed buttons
 		JMP		FIN_BOTONES
 
 BOTON_FLECHA_DER:
-		LDI		R18, 3					;cargo el valor que le di a la flecha( 3 = Rigth )
-		MOV		R7, R18					;devuelvo el valor 7 si no hay teclas pulsadas
+		LDI		R18, 3					;load the value assigned to the row( 3 = Rigth )
+		MOV		R7, R18					;return 7 if there is no pushed buttons
 		JMP		FIN_BOTONES
 
 BOTON_FLECHA_ABAJO:
-		LDI		R18, 4					;cargo el valor que le di a la flecha( 4 = Down )
-		MOV		R7, R18					;devuelvo el valor 7 si no hay teclas pulsadas
+		LDI		R18, 4					;load the value assigned to the row( 4 = Down )
+		MOV		R7, R18					;return 7 if there is no pushed buttons
 		JMP		FIN_BOTONES
 
 
 BOTON_ACEPTAR:
-		LDI		R18, 5					;cargo el valor que le di a la flecha( 5 = ACEPTAR )
-		MOV		R7, R18					;devuelvo el valor 7 si no hay teclas pulsadas
+		LDI		R18, 5					;load the value assigned to the row( 5 = ok )
+		MOV		R7, R18					;return 7 if there is no pushed buttons
 		JMP		FIN_BOTONES
 
 FIN_BOTONES:
@@ -2819,17 +2812,17 @@ RET
 
 
 ;************************************************************************/
-;cargo los graficos en RAM para el simon dice
+;Load the graphics in RAM for the game Simon Says
 ;************************************************************************/
 		
 LOAD_SIMON:
 
 		PUSH	R16		;POSITION X
 		PUSH	R17		;POSITION Y
-		PUSH	R19		;largo de caracteres para strings
-		PUSH	R23		;width in PIXELES para la imagen o lo que sea
-		PUSH	R24		;alto en bytes para la imagen o lo que sea
-		PUSH	ZL		;direccion para apuntar en la flash
+		PUSH	R19		;length of character for strings
+		PUSH	R23		;width in pixels for the image
+		PUSH	R24		;height in bytes for the image
+		PUSH	ZL		;direction to point to the FLASH
 		PUSH	ZH
 		
 
@@ -2838,27 +2831,27 @@ LOAD_SIMON:
 		;SIMON_DICE
 		LDI		R16, 0				;POSITION X
 		LDI		R17, 1				;POSITION Y
-		LDI		R23, 6				;width in PIXELES
-		LDI		R24, 1				;ALTO EN BYTES
-		LDI		R19, 12				;ancho del string
+		LDI		R23, 6				;width in pixels
+		LDI		R24, 1				;height in bytes
+		LDI		R19, 12				;length of the string
 		LDI		ZL, LOW(SIMON<<1)
 		LDI		ZH, HIGH(SIMON<<1)
 		CALL	RAM_PRINT_STRING
 		;numeros
 		LDI		R16, 40				;POSITION X
 		LDI		R17, 25				;POSITION Y
-		LDI		R23, 6				;width in PIXELES DEL CARACTER
+		LDI		R23, 6				;width in pixels of the character
 		LDI		R24, 2				;height in bytes 2, when is not centred
-		LDI		R19, 4				;ancho del string
+		LDI		R19, 4				;length of the string
 		LDI		ZL, LOW(NUMEROS<<1)
 		LDI		ZH, HIGH(NUMEROS<<1)
 		CALL	RAM_PRINT_STRING
 		;HIGH_SCORE
 		LDI		R16, 40				;POSITION X
 		LDI		R17, 13				;POSITION Y
-		LDI		R23, 6				;width in PIXELES DEL CARACTER
+		LDI		R23, 6				;width in pixels of the character
 		LDI		R24, 2				;height in bytes 2, when is not centred
-		LDI		R19, 7				;ancho del string
+		LDI		R19, 7				;length of the string
 		LDI		ZL, LOW(HIGH_SC<<1)
 		LDI		ZH, HIGH(HIGH_SC<<1)
 		CALL	RAM_PRINT_STRING
@@ -2866,9 +2859,9 @@ LOAD_SIMON:
 		;TU TURNO
 		LDI		R16, 35				;POSITION X
 		LDI		R17, 25				;POSITION Y
-		LDI		R23, 6				;width in PIXELES DEL CARACTER
+		LDI		R23, 6				;width in pixels of the character
 		LDI		R24, 1				;height in bytes 2, when is not centred
-		LDI		R19, 8				;ancho del string
+		LDI		R19, 8				;length of the string
 		LDI		ZL, LOW(TU_TURNO<<1)
 		LDI		ZH, HIGH(TU_TURNO<<1)
 		CALL	RAM_PRINT_STRING
@@ -2876,7 +2869,7 @@ LOAD_SIMON:
 		;CORAZON1
 		LDI		R16, 40				;POSITION X
 		LDI		R17, 37				;POSITION Y
-		LDI		R23, 10				;width in PIXELES
+		LDI		R23, 10				;width in pixels
 		LDI		R24, 2				;height in bytes 2, when is not centred
 		LDI		ZL, LOW(CORAZON_NEG<<1)
 		LDI		ZH, HIGH(CORAZON_NEG<<1)
@@ -2884,7 +2877,7 @@ LOAD_SIMON:
 		;CORAZON2
 		LDI		R16, 55				;POSITION X
 		LDI		R17, 37				;POSITION Y
-		LDI		R23, 10				;width in PIXELES
+		LDI		R23, 10				;width in pixels
 		LDI		R24, 2				;height in bytes 2, when is not centred
 		LDI		ZL, LOW(CORAZON_NEG<<1)
 		LDI		ZH, HIGH(CORAZON_NEG<<1)
@@ -2892,7 +2885,7 @@ LOAD_SIMON:
 		;CORAZON3
 		LDI		R16, 70				;POSITION X
 		LDI		R17, 37				;POSITION Y
-		LDI		R23, 10				;width in PIXELES
+		LDI		R23, 10				;width in pixels
 		LDI		R24, 2				;height in bytes 2, when is not centred
 		LDI		ZL, LOW(CORAZON_NEG<<1)
 		LDI		ZH, HIGH(CORAZON_NEG<<1)
@@ -2900,32 +2893,32 @@ LOAD_SIMON:
 		;FLECHA_UP
 		LDI		R16, 12				;POSITION X
 		LDI		R17, 12				;POSITION Y
-		LDI		R23, 9				;width in PIXELES
-		LDI		R24, 2				;ALTO EN BYTES
+		LDI		R23, 9				;width in pixels
+		LDI		R24, 2				;height in bytes
 		LDI		ZL, LOW(FLECHA_UP<<1)
 		LDI		ZH, HIGH(FLECHA_UP<<1)
 		CALL	LOAD_MATRIX_RAM
 		;FLECHA_L
 		LDI		R16, 0				;POSITION X
 		LDI		R17, 23				;POSITION Y
-		LDI		R23, 11				;width in PIXELES
-		LDI		R24, 2				;ALTO EN BYTES
+		LDI		R23, 11				;width in pixels
+		LDI		R24, 2				;height in bytes
 		LDI		ZL, LOW(FLECHA_L<<1)
 		LDI		ZH, HIGH(FLECHA_L<<1)
 		CALL	LOAD_MATRIX_RAM
 		;FLECHA_R
 		LDI		R16, 22				;POSITION X
 		LDI		R17, 23				;POSITION Y
-		LDI		R23, 11				;width in PIXELES
-		LDI		R24, 2				;ALTO EN BYTES
+		LDI		R23, 11				;width in pixels
+		LDI		R24, 2				;height in bytes
 		LDI		ZL, LOW(FLECHA_R<<1)
 		LDI		ZH, HIGH(FLECHA_R<<1)
 		CALL	LOAD_MATRIX_RAM
 		;FLECHA_DWN
 		LDI		R16, 12				;POSITION X
 		LDI		R17, 32				;POSITION Y (32)
-		LDI		R23, 9				;width in PIXELES
-		LDI		R24, 3				;ALTO EN BYTES anda bien con 1 byte mas
+		LDI		R23, 9				;width in pixels
+		LDI		R24, 3				;height in bytes (works well with one byte more)
 		LDI		ZL, LOW(FLECHA_DWN<<1)
 		LDI		ZH, HIGH(FLECHA_DWN<<1)
 		CALL	LOAD_MATRIX_RAM
@@ -2950,9 +2943,9 @@ LOAD_SIMON:
 
 
 ;*******************************************************************************************/
-;quantity of datos que dijo simon
-;convertir el dato a BCD para mostrarlo bien en pantalla
-;el valor debe ir en R25
+;quantity of moves that Simon says
+;convert the data to BCD to show well in screen
+;the value most be in R25
 ;*******************************************************************************************/
 
 CONT_SIMON:
@@ -2960,16 +2953,16 @@ CONT_SIMON:
 		PUSH	R1
 		PUSH	R16
 		PUSH	R17			
-		PUSH	R18			;valor del resto de la division "numeros"
-		PUSH	R20			;valor del decimal para la division
-		PUSH	R22			;guardo 48 para sumar al valor y que me de el caracter para mostrar
+		PUSH	R18			;value of the rest of the division "numbers"
+		PUSH	R20			;value of the decimal for the division
+		PUSH	R22			;save 48 to add to the value and give me the character to show
 		PUSH	R23
 		PUSH	R24
-		PUSH	R25			;value ofLOS DATOS
+		PUSH	R25			;value of data
 			
 
 		LDI		R16, 10
-		LDI		R20, 0		;valor del decimal para la division
+		LDI		R20, 0		;value of the decimal for the division
 
 
 
@@ -2985,28 +2978,28 @@ TERMINE_LA_DIV_2:
 		MOV		R23, R20
 		MUL		R23, R16
 		SUB		R25, R0
-		MOV		R18, R25		;value ofLA RESTA, VER SI DEJO R18 U OTRO
+		MOV		R18, R25		;value of the sub
 
 
 
 
-		;numeros unidad
+		;numbers unidad
 		LDI		R16, 77				;POSITION X
 		LDI		R17, 25				;POSITION Y
-		LDI		R23, 6				;width in PIXELES DEL CARACTER
+		LDI		R23, 6				;width in pixels of the character
 		LDI		R24, 1				;height in bytes 2, when is not centred
 		LDI		R22, 48
-		ADD		R18, R22			;LE SUMO 48 PARA MOSTRAR EL NUMERO
+		ADD		R18, R22			;add 48 to show the number
 		CALL	RAM_PRINT_CHAR
 
-		;numeros decena
+		;numbers decena
 		LDI		R16, 71				;POSITION X
 		LDI		R17, 25				;POSITION Y
-		LDI		R23, 6				;width in PIXELES DEL CARACTER
+		LDI		R23, 6				;width in pixels of the character
 		LDI		R24, 1				;height in bytes 2, when is not centred
-		MOV		R18, R20			;R20 ANTES, VEO Q RANDOM SALIO
+		MOV		R18, R20			;R20 , get the random value
 		LDI		R22, 48
-		ADD		R18, R22			;LE SUMO 48 PARA MOSTRAR EL NUMERO
+		ADD		R18, R22			;add 48 to show the number
 		CALL	RAM_PRINT_CHAR
 
 
@@ -3025,7 +3018,7 @@ TERMINE_LA_DIV_2:
 
 
 ;*******************************************************************************************/
-;MUESTRO LA FLECHA PULSADA EN PANTALLA Y DESPUES SIGO CON EL PROGRAMA
+;show the pushed arrow in screnn and continue with the program
 ;*******************************************************************************************/
 
 MUESTRO_FLECHA_PULSADA:
@@ -3033,22 +3026,22 @@ MUESTRO_FLECHA_PULSADA:
 
 		PUSH	R16			;POSITION X
 		PUSH	R17			;POSITION Y
-		PUSH	R22			;value ofla tecla pulsada
-		PUSH	R23			;width in PIXELES
-		PUSH	R24			;ALTO EN BYTES
+		PUSH	R22			;value of the pushed button
+		PUSH	R23			;width in pixels
+		PUSH	R24			;height in bytes
 		PUSH	ZL
 		PUSH	ZH
 
 
-		;MOV		R22, R7			;copio el value ofla tecla pulsada en R22
+		;MOV		R22, R7			;copy the value of the pushed button in R22
 
 		CPI		R22, 1
-		BREQ	CARGO_1			;cargo Up
+		BREQ	CARGO_1			;load Up
 		CPI		R22, 2
-		BREQ	CARGO_2			;cargo izq
+		BREQ	CARGO_2			;load izq
 		CPI		R22, 3
-		BREQ	CARGO_3			;cargo der
-		JMP		CARGO_ABAJO		;Los branchs no llegan tengo que usar JMP
+		BREQ	CARGO_3			;load der
+		JMP		CARGO_ABAJO		;branch can't reach, so use JMP
 
 CARGO_1:
 		JMP		CARGO_ARRIBA
@@ -3060,13 +3053,13 @@ CARGO_3:
 
 
 CARGO_ABAJO:
-		LDI		R22, 12				;PARA VERLO GRIS 1 SEG
+		LDI		R22, 12				;see the arrow in gray
 ABAJO_GRIS:
 		;FLECHA_DWN_NEG
 		LDI		R16, 12				;POSITION X
 		LDI		R17, 32				;POSITION Y (32)
-		LDI		R23, 9				;width in PIXELES
-		LDI		R24, 3				;ALTO EN BYTES anda bien con 1 byte mas
+		LDI		R23, 9				;width in pixels
+		LDI		R24, 3				;height in bytes works well with one mor byte
 		LDI		ZL, LOW(FLECHA_DWN_NEG<<1)
 		LDI		ZH, HIGH(FLECHA_DWN_NEG<<1)
 		CALL	LOAD_MATRIX_RAM
@@ -3080,8 +3073,8 @@ ABAJO_GRIS:
 		;FLECHA_DWN
 		LDI		R16, 12				;POSITION X
 		LDI		R17, 32				;POSITION Y (32)
-		LDI		R23, 9				;width in PIXELES
-		LDI		R24, 3				;ALTO EN BYTES anda bien con 1 byte mas
+		LDI		R23, 9				;width in pixels
+		LDI		R24, 3				;height in bytes works well with one mor byte
 		LDI		ZL, LOW(FLECHA_DWN<<1)
 		LDI		ZH, HIGH(FLECHA_DWN<<1)
 		CALL	LOAD_MATRIX_RAM
@@ -3098,13 +3091,13 @@ ABAJO_GRIS:
 		JMP		FIN_MUESTRO_FLECHAS
 
 CARGO_ARRIBA:
-		LDI		R22, 12				;PARA VERLO GRIS 1 SEG
+		LDI		R22, 12				;see the arrow in gray
 ARRIBA_GRIS:
 		;FLECHA_UP_NEG
 		LDI		R16, 12				;POSITION X
 		LDI		R17, 12				;POSITION Y
-		LDI		R23, 9				;width in PIXELES
-		LDI		R24, 2				;ALTO EN BYTES
+		LDI		R23, 9				;width in pixels
+		LDI		R24, 2				;height in bytes
 		LDI		ZL, LOW(FLECHA_UP_NEG<<1)
 		LDI		ZH, HIGH(FLECHA_UP_NEG<<1)
 		CALL	LOAD_MATRIX_RAM
@@ -3118,8 +3111,8 @@ ARRIBA_GRIS:
 		;FLECHA_UP
 		LDI		R16, 12				;POSITION X
 		LDI		R17, 12				;POSITION Y
-		LDI		R23, 9				;width in PIXELES
-		LDI		R24, 2				;ALTO EN BYTES
+		LDI		R23, 9				;width in pixels
+		LDI		R24, 2				;height in bytes
 		LDI		ZL, LOW(FLECHA_UP<<1)
 		LDI		ZH, HIGH(FLECHA_UP<<1)
 		CALL	LOAD_MATRIX_RAM
@@ -3138,13 +3131,13 @@ ARRIBA_GRIS:
 
 
 CARGO_IZQ:
-		LDI		R22, 12				;PARA VERLO GRIS 1 SEG
+		LDI		R22, 12				;see the arrow in gray
 IZQ_GRIS:
 		;FLECHA_L_NEG
 		LDI		R16, 0				;POSITION X
 		LDI		R17, 23				;POSITION Y
-		LDI		R23, 11				;width in PIXELES
-		LDI		R24, 2				;ALTO EN BYTES
+		LDI		R23, 11				;width in pixels
+		LDI		R24, 2				;height in bytes
 		LDI		ZL, LOW(FLECHA_L_NEG<<1)
 		LDI		ZH, HIGH(FLECHA_L_NEG<<1)
 		CALL	LOAD_MATRIX_RAM
@@ -3159,8 +3152,8 @@ IZQ_GRIS:
 		;FLECHA_L
 		LDI		R16, 0				;POSITION X
 		LDI		R17, 23				;POSITION Y
-		LDI		R23, 11				;width in PIXELES
-		LDI		R24, 2				;ALTO EN BYTES
+		LDI		R23, 11				;width in pixels
+		LDI		R24, 2				;height in bytes
 		LDI		ZL, LOW(FLECHA_L<<1)
 		LDI		ZH, HIGH(FLECHA_L<<1)
 		CALL	LOAD_MATRIX_RAM
@@ -3180,13 +3173,13 @@ IZQ_GRIS:
 
 
 CARGO_DER:
-		LDI		R22, 12				;PARA VERLO GRIS 1 SEG
+		LDI		R22, 12				;see the arrow in gray
 DER_GRIS:
 		;FLECHA_R
 		LDI		R16, 22				;POSITION X
 		LDI		R17, 23				;POSITION Y
-		LDI		R23, 11				;width in PIXELES
-		LDI		R24, 2				;ALTO EN BYTES
+		LDI		R23, 11				;width in pixels
+		LDI		R24, 2				;height in bytes
 		LDI		ZL, LOW(FLECHA_R_NEG<<1)
 		LDI		ZH, HIGH(FLECHA_R_NEG<<1)
 		CALL	LOAD_MATRIX_RAM
@@ -3200,8 +3193,8 @@ DER_GRIS:
 		;FLECHA_R
 		LDI		R16, 22				;POSITION X
 		LDI		R17, 23				;POSITION Y
-		LDI		R23, 11				;width in PIXELES
-		LDI		R24, 2				;ALTO EN BYTES
+		LDI		R23, 11				;width in pixels
+		LDI		R24, 2				;height in bytes
 		LDI		ZL, LOW(FLECHA_R<<1)
 		LDI		ZH, HIGH(FLECHA_R<<1)
 		CALL	LOAD_MATRIX_RAM
@@ -3232,16 +3225,16 @@ FIN_MUESTRO_FLECHAS:
 RET
 
 ;**************************************************************************************/
-;MUESTRO LOS CORAZONES
+;Show hearts in screen
 ;**************************************************************************************/
 
 CORAZONES:
 
 		PUSH	R16			;POSITION X
 		PUSH	R17			;POSITION Y
-		PUSH	R22			;quantity of corazones disponibles
-		PUSH	R23			;width in PIXELES
-		PUSH	R24			;ALTO EN BYTES
+		PUSH	R22			;quantity of hearts left
+		PUSH	R23			;width in pixels
+		PUSH	R24			;height in bytes
 		PUSH	ZL
 		PUSH	ZH
 
@@ -3254,7 +3247,7 @@ CORAZONES:
 		;CORAZON1_BLANCO
 		LDI		R16, 40				;POSITION X
 		LDI		R17, 37				;POSITION Y
-		LDI		R23, 10				;width in PIXELES
+		LDI		R23, 10				;width in pixels
 		LDI		R24, 2				;height in bytes 2, when is not centred
 		LDI		ZL, LOW(CORAZON<<1)
 		LDI		ZH, HIGH(CORAZON<<1)
@@ -3266,7 +3259,7 @@ CORAZON2_BLANCO:
 		;CORAZON2
 		LDI		R16, 55				;POSITION X
 		LDI		R17, 37				;POSITION Y
-		LDI		R23, 10				;width in PIXELES
+		LDI		R23, 10				;width in pixels
 		LDI		R24, 2				;height in bytes 2, when is not centred
 		LDI		ZL, LOW(CORAZON<<1)
 		LDI		ZH, HIGH(CORAZON<<1)
@@ -3278,7 +3271,7 @@ CORAZON3_BLANCO:
 		;CORAZON3
 		LDI		R16, 70				;POSITION X
 		LDI		R17, 37				;POSITION Y
-		LDI		R23, 10				;width in PIXELES
+		LDI		R23, 10				;width in pixels
 		LDI		R24, 2				;height in bytes 2, when is not centred
 		LDI		ZL, LOW(CORAZON<<1)
 		LDI		ZH, HIGH(CORAZON<<1)
@@ -3299,12 +3292,12 @@ RET
 
 
 ;**************************************************************************************/
-;ESCRIBO HIGH SCORE DESDE EL EEPROM
+;Write High Score from the EEPROM
 ;**************************************************************************************/
 
 ESCRIBO_HIGH_SCORE:
 
-		PUSH	R22			;valor a escribir en la EEPROM
+		PUSH	R22			;value of data to write in the EEPROM
 		PUSH	ZL
 		PUSH	ZH
 
@@ -3312,24 +3305,24 @@ ESCRIBO_HIGH_SCORE:
 		LDI		ZL, LOW(HIGH_SCORE)
 		LDI		ZH, HIGH(HIGH_SCORE)
 
-		CLI						;SACO LAS INTERRUPCIONES
+		CLI						;quit the interruptions
 
 EEPROM_WRITE:
  
 		SBIC	EECR,EEPE 
-		RJMP	EEPROM_WRITE		;ESPERO PARA PODER ESCRIBIR
+		RJMP	EEPROM_WRITE		;wait until i can write
  
-		OUT		EEARH, ZH			;GUARDO LA DIRECCION DE DONDE ESTA EL BYTE A ESCRIBIR
+		OUT		EEARH, ZH			;save the direction where is the byte to write
 		OUT		EEARL, ZL
  
-		OUT		EEDR, R22			;escribo el value ofR22 en la direccion apuntada por ZL y ZH
+		OUT		EEDR, R22			;write the value of R22 in the direction pointed by Zl and Zh
  
-		SBI		EECR,EEMPE			; Write logical one to EEMPE
+		SBI		EECR,EEMPE			;Write logical one to EEMPE
  
-		SBI		EECR,EEPE			;escribo en la EEPROM seteando EEPE
+		SBI		EECR,EEPE			;write in the EEPROM seting EEPE
  
 
-		SEI							;VUELVO A ACTIVAR LAS INTERERUPCIONES
+		SEI							;Resume interruptions
 
 		POP		ZH
 		POP		ZL
@@ -3340,18 +3333,18 @@ RET
 
 
 ;**************************************************************************************/
-;LEO HIGH SCORE DESDE EL EEPROM Y LO MUESTRO
-;DEVUELVO EL VALOR EN R9 PARA COMPARARLO DESPUES
+;Read the High Score from the EEPROM and show it in the screen
+;Return the value in R9 to compare it
 ;**************************************************************************************/
 
 LEO_HIGH_SCORE:
 
 		PUSH	R16			;POSITION X
 		PUSH	R17			;POSITION Y
-		PUSH	R20			;valor leido de la EEPROM
-		PUSH	R22			;48 para sumarle y mostrar el caracter en pantalla
-		PUSH	R23			;width in PIXELES
-		PUSH	R24			;ALTO EN BYTES
+		PUSH	R20			;value readed form EEPROM
+		PUSH	R22			;48 to add and show the character in screen
+		PUSH	R23			;width in pixels
+		PUSH	R24			;height in bytes
 		PUSH	R25
 		PUSH	ZL
 		PUSH	ZH
@@ -3360,29 +3353,29 @@ LEO_HIGH_SCORE:
 		LDI		ZL, LOW(HIGH_SCORE)
 		LDI		ZH, HIGH(HIGH_SCORE)
 
-		CLI						;SACO LAS INTERRUPCIONES
+		CLI						;quit the interruptions
 EEPROM_READ:
  
-		SBIC	EECR, EEPE		;ESPERO PARA PODER ESCRIBIR
+		SBIC	EECR, EEPE		;wait until i can write
 		RJMP	EEPROM_read
 
 		OUT		EEARH, ZH
 		OUT		EEARL, ZL
 		
-		SBI		EECR, EERE		;EMPIEZO A LEER LA EEPROM
+		SBI		EECR, EERE		;start reading the EEPROM
 
-		IN		R20, EEDR		;GUARDO EL DATO EN R20
+		IN		R20, EEDR		;save the data in R20
 
-		MOV		R9, R20			;COPIO EL VALOR DEL DATO LEIDO EN R9
+		MOV		R9, R20			;Copy the readed value in R9
 
-		SEI						;VUELVO A ACTIVAR LAS INTERERUPCIONES
+		SEI						;Resume interruptions
 
 			
 		LDI		R16, 10
-		LDI		R25, 0		;valor del decimal para la division
+		LDI		R25, 0		;value of the decimal for the division
 
 		CPI		R20, 0xFF
-		BRNE	SIGO_3		;SIGO SI NO ES 0
+		BRNE	SIGO_3		;continue if it not 0
 
 		LDI		R18, 0
 		LDI		R25, 0
@@ -3400,33 +3393,33 @@ TERMINE_LA_DIV_3:
 		MOV		R23, R25
 		MUL		R23, R16
 		SUB		R20, R0
-		MOV		R18, R20		;value ofLA RESTA, VER SI DEJO R18 U OTRO
+		MOV		R18, R20		;value of the sub
 
 
 
 ESCRIBO_NUMEROS:
-		;numeros unidad
+		;numbersunidad
 		LDI		R16, 76				;POSITION X
 		LDI		R17, 13				;POSITION Y
-		LDI		R23, 6				;width in PIXELES DEL CARACTER
+		LDI		R23, 6				;width in pixels of the character
 		LDI		R24, 2				;height in bytes 2, when is not centred
 		LDI		R22, 48
-		ADD		R18, R22			;LE SUMO 48 PARA MOSTRAR EL NUMERO
+		ADD		R18, R22			;add 48 to show the number
 		CALL	RAM_PRINT_CHAR
 
-		;numeros decena
+		;numbersdecena
 		LDI		R16, 70				;POSITION X
 		LDI		R17, 13				;POSITION Y
-		LDI		R23, 6				;width in PIXELES DEL CARACTER
+		LDI		R23, 6				;width in pixels of the character
 		LDI		R24, 2				;height in bytes 2, when is not centred
-		MOV		R18, R25			;R20 ANTES, VEO Q RANDOM SALIO
+		MOV		R18, R25			;R20 , get the random value
 		LDI		R22, 48
-		ADD		R18, R22			;LE SUMO 48 PARA MOSTRAR EL NUMERO
+		ADD		R18, R22			;add 48 to show the number
 		CALL	RAM_PRINT_CHAR
 
 		LDI		ZL,LOW(RAM_DISPLAY)
 		LDI		ZH,HIGH(RAM_DISPLAY)
-		CALL	REFRESH_DISPLAY		;LO MUESTRO EN PANTALLA
+		CALL	REFRESH_DISPLAY		;show it on the screen
 
 
 		POP		ZH
@@ -3443,9 +3436,9 @@ RET
 
 
 ;*******************************************************************************************/
-;quantity of datos que introdujo el USUARIO
-;convertir el dato a BCD para mostrarlo bien en pantalla
-;el valor debe ir en R25
+;quantity of data pushed by the user
+;convert the data to BCD to show it well on screen
+;the value most be in R25
 ;*******************************************************************************************/
 
 CONT_USER:
@@ -3453,16 +3446,16 @@ CONT_USER:
 		PUSH	R1
 		PUSH	R16
 		PUSH	R17			
-		PUSH	R18			;valor del resto de la division "numeros"
-		PUSH	R20			;valor del decimal para la division
-		PUSH	R22			;guardo 48 para sumar al valor y que me de el caracter para mostrar
+		PUSH	R18			;value of the rest of the division "numbers"
+		PUSH	R20			;value of the decimal for the division
+		PUSH	R22			;save 48 to add to the value and give me the character to show
 		PUSH	R23
 		PUSH	R24
-		PUSH	R25			;value ofLOS DATOS
+		PUSH	R25			;value of data
 			
 
 		LDI		R16, 10
-		LDI		R20, 0		;valor del decimal para la division
+		LDI		R20, 0		;value of the decimal for the division
 
 
 
@@ -3478,28 +3471,28 @@ TERMINE_LA_DIV_4:
 		MOV		R23, R20
 		MUL		R23, R16
 		SUB		R25, R0
-		MOV		R18, R25		;value ofLA RESTA, VER SI DEJO R18 U OTRO
+		MOV		R18, R25		;value of the sub
 
 
 
 
-		;numeros unidad
+		;numbersunidad
 		LDI		R16, 46				;POSITION X
 		LDI		R17, 25				;POSITION Y
-		LDI		R23, 6				;width in PIXELES DEL CARACTER
+		LDI		R23, 6				;width in pixels of the character
 		LDI		R24, 1				;height in bytes 2, when is not centred
 		LDI		R22, 48
-		ADD		R18, R22			;LE SUMO 48 PARA MOSTRAR EL NUMERO
+		ADD		R18, R22			;add 48 to show the number
 		CALL	RAM_PRINT_CHAR
 
-		;numeros decena
+		;numbersdecena
 		LDI		R16, 40				;POSITION X
 		LDI		R17, 25				;POSITION Y
-		LDI		R23, 6				;width in PIXELES DEL CARACTER
+		LDI		R23, 6				;width in pixels of the character
 		LDI		R24, 1				;height in bytes 2, when is not centred
-		MOV		R18, R20			;R20 ANTES, VEO Q RANDOM SALIO
+		MOV		R18, R20			;R20 , get the random value
 		LDI		R22, 48
-		ADD		R18, R22			;LE SUMO 48 PARA MOSTRAR EL NUMERO
+		ADD		R18, R22			;add 48 to show the number
 		CALL	RAM_PRINT_CHAR
 
 
